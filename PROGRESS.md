@@ -31,8 +31,13 @@
   - Замер: ArrayList в 2700x быстрее на `get(i)`, в 66x медленнее на `add(0, x)`, ~2x медленнее на `addLast`
   - Файл `src/main/java/ru/algobank/algo/step01/ListBenchmark.java`
   - Коммит `e4ffba8`
-- ⏳ **B** — HashMap внутри (следующий)
-- ⏳ **C** — задача №1 (Two Sum, easy)
+- ✅ **B** — HashMap внутри (завершён 11.09.2026)
+  - HashMap<String, Long> с балансами клиентов (alice, bob, carol, dave, eve)
+  - put / get / update / entrySet / remove — всё отработало
+  - Усвоено: контракт hashCode/equals, коллизии, O(1) средний случай, treeify в Java 8+
+  - Файл `src/main/java/ru/algobank/algo/step01/HashMapPlayground.java`
+  - Коммит `736954a`
+- ⏳ **C** — задача №1 (Two Sum, easy) — следующий
 - ⏳ **D** — задача №2 (группировка Stream, easy/medium)
 - ⏳ Мини-экзамен: 1 вопрос без вариантов
 
