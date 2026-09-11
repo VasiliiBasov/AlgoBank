@@ -36,6 +36,7 @@
 | # | Дата | Тема | Часов |
 |---|------|------|-------|
 | 1 | 11.09.2026 | Шаг 0: Инициализация AlgoBank (Maven Archetype → Spring Boot, pom.xml, application.yml, файлы-дневники, git init, коммит) | 0.2 |
+| 2 | 11.09.2026 | Шаг 1A: ArrayList vs LinkedList benchmark, git push, микро-шаг A завершён | 0.3 |
 
 ---
 

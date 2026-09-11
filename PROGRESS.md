@@ -12,8 +12,8 @@
 
 ## 📌 Где мы сейчас
 
-**Текущий шаг:** 0 / 26 (инициализация проекта, 11.09.2026) ✅
-**Следующий шаг:** шаг 1 (Collections framework — экспресс-повторение Java Core)
+**Текущий шаг:** 1 / 26 (Collections framework — экспресс-повторение Java Core)
+**Прогресс шага 1:** A ✅ / B ⏳ / C ⏳ / D ⏳
 **Процент:** 0% (0/26)
 
 **Что сделано в шаге 0 (служебный, инициализация, 11.09.2026):**
@@ -25,6 +25,16 @@
 - ✅ Создана структура пакетов: `ru.algobank.algo.step01`+ для алгоритмических задач
 - ✅ Созданы 5 файлов-дневника: `HANDOFF.md`, `PROGRESS.md`, `STATS.md`, `LEARNING_LOG.md`, `OVERALL_STATS.md`, `COURSE_HANDBOOK.md`
 - ✅ Git init + первый коммит
+
+**Что сделано в шаге 1 (Collections framework, 11.09.2026):**
+- ✅ **A** — ArrayList внутри + ArrayList vs LinkedList
+  - Замер: ArrayList в 2700x быстрее на `get(i)`, в 66x медленнее на `add(0, x)`, ~2x медленнее на `addLast`
+  - Файл `src/main/java/ru/algobank/algo/step01/ListBenchmark.java`
+  - Коммит `e4ffba8`
+- ⏳ **B** — HashMap внутри (следующий)
+- ⏳ **C** — задача №1 (Two Sum, easy)
+- ⏳ **D** — задача №2 (группировка Stream, easy/medium)
+- ⏳ Мини-экзамен: 1 вопрос без вариантов
 
 ---
 
