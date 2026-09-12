@@ -20,7 +20,7 @@ public class ListBenchmark {
     public static String getCenter1k(List<Integer> list){
         long time = System.nanoTime();
         for (int i = 0; i < 1000; i++) {
-            list.get(50000);
+            list.get(99999);
         }
         long elapsed = System.nanoTime() - time;
         return "get(50000)=" + (elapsed/1000) + " мкс";

@@ -48,7 +48,24 @@
   - Усвоено: Collectors.groupingBy + summingLong/counting, sorted+limit для top-K
   - Файл `src/main/java/ru/algobank/algo/step01/TransactionGrouping.java`
   - Коммит `2b83b70`
-- ⏳ Мини-экзамен: 1 вопрос без вариантов — следующий
+- ✅ Мини-экзамен: 1 вопрос без вариантов (завершён 12.09.2026)
+  - Вопрос: ArrayList vs LinkedList для Account.transactions
+  - Ответ: ArrayList (верно), аргументы про get(i) + append + Deque
+  - Оценка: **85/100** (отлично для шага 1)
+  - Комментарий: не хватает аргументов про cache locality и memory layout
+
+---
+
+## 🎉 Шаг 1 полностью завершён
+
+**Прогресс:** 4 микро-шага + 2 алгоритмические задачи + мини-экзамен
+**Файлы:**
+- `ListBenchmark.java` — замер ArrayList vs LinkedList
+- `HashMapPlayground.java` — типизированный HashMap с клиентами
+- `TwoSum.java` — обе версии (HashMap + brute force)
+- `TransactionGrouping.java` — Stream API, record, top-K
+
+**Следующий шаг:** шаг 2 — Generics, equals/hashCode, immutability + value class `Money`
 
 ---
 
