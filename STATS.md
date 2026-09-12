@@ -38,6 +38,7 @@
 | 1 | 11.09.2026 | Шаг 0: Инициализация AlgoBank (Maven Archetype → Spring Boot, pom.xml, application.yml, файлы-дневники, git init, коммит) | 0.2 |
 | 2 | 11.09.2026 | Шаг 1A: ArrayList vs LinkedList benchmark, git push, микро-шаг A завершён | 0.3 |
 | 3 | 11.09.2026 | Шаг 1B: HashMap playground (типизация, контракт hashCode/equals, коллизии) | 0.5 |
+| 4 | 12.09.2026 | Шаг 1C: Two Sum (HashMap O(n) + brute force O(n²), разница в 1M раз) | 0.5 |
 
 ---
 

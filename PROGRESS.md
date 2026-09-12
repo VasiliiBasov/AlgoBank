@@ -37,8 +37,12 @@
   - Усвоено: контракт hashCode/equals, коллизии, O(1) средний случай, treeify в Java 8+
   - Файл `src/main/java/ru/algobank/algo/step01/HashMapPlayground.java`
   - Коммит `736954a`
-- ⏳ **C** — задача №1 (Two Sum, easy) — следующий
-- ⏳ **D** — задача №2 (группировка Stream, easy/medium)
+- ✅ **C** — Two Sum, easy (завершён 12.09.2026)
+  - Реализованы оба подхода: HashMap (O(n)) и brute force (O(n²))
+  - Усвоено: HashMap в 1 000 000 раз быстрее на n=1M (10⁶ vs 10¹² операций)
+  - Файл `src/main/java/ru/algobank/algo/step01/TwoSum.java`
+  - Коммит `9060833`
+- ⏳ **D** — задача №2 (группировка Stream, easy/medium) — следующий
 - ⏳ Мини-экзамен: 1 вопрос без вариантов
 
 ---
