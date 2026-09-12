@@ -42,8 +42,13 @@
   - Усвоено: HashMap в 1 000 000 раз быстрее на n=1M (10⁶ vs 10¹² операций)
   - Файл `src/main/java/ru/algobank/algo/step01/TwoSum.java`
   - Коммит `9060833`
-- ⏳ **D** — задача №2 (группировка Stream, easy/medium) — следующий
-- ⏳ Мини-экзамен: 1 вопрос без вариантов
+- ✅ **D** — Группировка транзакций, easy/medium (завершён 12.09.2026)
+  - record Transaction (клиент, тип, сумма)
+  - 3 отчёта через Stream API: сумма по типам, count по типам, топ-3 клиента
+  - Усвоено: Collectors.groupingBy + summingLong/counting, sorted+limit для top-K
+  - Файл `src/main/java/ru/algobank/algo/step01/TransactionGrouping.java`
+  - Коммит `2b83b70`
+- ⏳ Мини-экзамен: 1 вопрос без вариантов — следующий
 
 ---
 
