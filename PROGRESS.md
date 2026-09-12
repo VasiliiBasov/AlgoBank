@@ -69,6 +69,25 @@
 
 ---
 
+## Шаг 2: Generics, equals/hashCode, immutability (в работе)
+
+- ✅ **A** — Generics (завершён 12.09.2026)
+  - 3 метода: printList(?), sumNumbers(? extends Number), addIntegers(? super Integer)
+  - Файл `src/main/java/ru/algobank/algo/step02/GenericsPlayground.java`
+  - Коммит `1dc55ab`
+  - Оценка: 80/100 (PECS баг — ? super Number вместо ? super Integer)
+- ✅ **B** — equals/hashCode контракт + Money value object (завершён 12.09.2026)
+  - final class Money, final поля, Objects.requireNonNull
+  - equals через pattern matching, hashCode через Objects.hash
+  - Файл `src/main/java/ru/algobank/algo/step02/Money.java`
+  - Коммит `297de8c`
+  - Оценка: 95/100 (не упомянул симметричность equals + нюанс BigDecimal scale)
+- ⏳ **C** — Immutability (defensive copies)
+- ⏳ **D** — Задача на Money (сложение, equals с разными scale, валютные операции)
+- ⏳ Мини-экзамен шага 2
+
+---
+
 ## 🧭 Если новый ассистент
 
 **Если ученик написал «прочитай прогресс» — прочитай ОБЯЗАТЕЛЬНО все 6 файлов в таком порядке:**

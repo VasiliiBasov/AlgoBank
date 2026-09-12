@@ -41,6 +41,8 @@
 | 4 | 12.09.2026 | Шаг 1C: Two Sum (HashMap O(n) + brute force O(n²), разница в 1M раз) | 0.5 |
 | 5 | 12.09.2026 | Шаг 1D: Transaction grouping (Stream API, record, top-K через sorted+limit) | 0.5 |
 | 6 | 12.09.2026 | Шаг 1 мини-экзамен (ArrayList vs LinkedList — 85/100) | 0.2 |
+| 7 | 12.09.2026 | Шаг 2A: Generics (PECS, ? extends/super) — 80/100 | 0.5 |
+| 8 | 12.09.2026 | Шаг 2B: Money value object (equals/hashCode, final, pattern matching) — 95/100 | 0.5 |
 
 ---
 

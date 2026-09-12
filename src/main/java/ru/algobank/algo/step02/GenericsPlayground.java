@@ -6,14 +6,19 @@ import java.util.List;
 public class GenericsPlayground {
 
     public static void printList(List<?> list) {
-        list.forEach(System.out::println);
+        StringBuilder sb = new StringBuilder();
+        list.forEach( item -> {
+            if (sb.length() > 0) sb.append(", ");
+            sb.append(item);
+        });
+        System.out.println(sb);
     }
 
     public static double sumNumbers(List<? extends Number> numbers) {
         return numbers.stream().mapToDouble(Number::doubleValue).sum();
     }
 
-    public static void addIntegers(List<? super Number> sink) {
+    public static void addIntegers(List<? super Integer> sink) {
         sink.add(1);
         sink.add(2);
         sink.add(3);
