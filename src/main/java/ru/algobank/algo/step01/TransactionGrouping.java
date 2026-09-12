@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 public class TransactionGrouping {
 
-    record Transaction(String client, String type, long amountKopecks) {
+    public record Transaction(String client, String type, long amountKopecks) {
     }
 
     public static void main(String[] args) {

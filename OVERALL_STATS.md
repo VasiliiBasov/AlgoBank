@@ -22,7 +22,7 @@
 |---|--------|------|--------|-------|-------|------|-------------------|
 | 1 | **SpringCoreProject** | Spring Core (без Boot) | ✅ Завершён | 12 / 12 | 17.2 | ~85% | `SpringCoreProject/COURSE_HANDBOOK.md` |
 | 2 | **SpringBootProject** | Spring Boot + JPA + Security | ⏳ В процессе | 9 / 15 (шаг 9 закрыт) | 21.7+ | ~82% | `SpringBootProject/COURSE_HANDBOOK.md` |
-| 3 | **AlgoBank** | **Java Core повт. + Spring Boot + Алгоритмы + SQL** | ⏳ Старт сегодня | **0 / 26** (шаг 0 закрыт) | **0.2** (старт 11.09.2026) | — | `Algoritm/COURSE_HANDBOOK.md` |
+| 3 | **AlgoBank** | **Java Core повт. + Spring Boot + Алгоритмы + SQL** | ⏳ В процессе | **2 / 26** (шаги 1, 2 в работе) | **2.2** (старт 11.09.2026, идёт) | ~86% (по 2A/2B/2C) | `Algoritm/COURSE_HANDBOOK.md` |
 
 ### Не использовать как проекты в этой статистике
 
@@ -78,10 +78,11 @@
 - [ ] Кэширование (шаг 14)
 - [ ] Финал / ревью (шаг 15)
 
-### ⏳ AlgoBank (курс №3, проект 3 — старт сегодня)
+### ⏳ AlgoBank (курс №3, проект 3 — в процессе)
 
-- [ ] **Шаг 1:** Collections framework (List/Set/Map, HashMap внутри)
-- [ ] **Шаг 2:** Generics, equals/hashCode, immutability
+- [x] **Шаг 0:** Инициализация проекта
+- [x] **Шаг 1:** Collections framework (List/Set/Map, HashMap внутри) — 85/100
+- [⏳] **Шаг 2:** Generics, equals/hashCode, immutability (A/B/C ✅, 2D и экзамен впереди) — ~86%
 - [ ] **Шаг 3:** Stream API + Optional + лямбды
 - [ ] **Шаг 4:** Records, sealed, pattern matching (Java 21)
 - [ ] **Шаги 5-14:** Spring Boot (REST, JPA, Security, JWT, кэш, тесты) внутри AlgoBank
@@ -129,7 +130,7 @@
 - [x] Spring Security basics (SpringBootProject, шаг 9 ✅, ~87%)
 - [ ] Защитить endpoints через Spring Security + JWT (SpringBootProject, шаг 10)
 - [ ] Написать интеграционный тест с `@SpringBootTest` (SpringBootProject, шаг 12)
-- [ ] **Уверенный Java Core** (AlgoBank, шаги 1-4)
+- [ ] **Уверенный Java Core** (AlgoBank, шаги 1-4) — ⏳ шаг 1 ✅, шаг 2 в работе
 - [ ] **60+ алгоритмических задач** (AlgoBank, шаги 1-25)
 - [ ] **SQL JOIN/CTE/оконные функции + EXPLAIN** (AlgoBank, шаги 18-19)
 - [ ] **Многопоточность** (AlgoBank, шаги 15-16)
@@ -138,7 +139,7 @@
 
 **Прогресс:** 5 / 13 (38%) — по контрольным точкам чеклиста
 
-**Прогресс по шагам:** 21 / 53 (40%) — Spring Core (12) + Spring Boot (9) + AlgoBank (0)
+**Прогресс по шагам:** 23 / 53 (43%) — Spring Core (12) + Spring Boot (9) + AlgoBank (2)
 
 ---
 
@@ -165,8 +166,8 @@
 
 ---
 
-| AlgoBank | 11.09.2026 → _TBD_ | 0.2 (старт сегодня) |
-| **ИТОГО** | | **39.1+ ч** |
+| AlgoBank | 11.09.2026 → _TBD_ | 2.2 (в процессе) |
+| **ИТОГО** | | **41.1+ ч** |
 
 **Средняя скорость по Core:** ~1.4 ч/шаг
 

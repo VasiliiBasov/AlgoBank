@@ -26,14 +26,36 @@
 
 ## 📊 Текущий статус
 
-- **Шаг:** 0 / 26 (инициализация проекта, 11.09.2026)
+- **Шаг:** 2 / 26 (Generics, equals/hashCode, immutability — в работе)
 - **Дата старта:** 11.09.2026
-- **Средний балл:** —
-- **Всего потрачено:** ~0.2 ч (инициализация)
+- **Завершённые подшаги:** 2A ✅ (Generics), 2B ✅ (Money), 2C ✅ (Account immutable)
+- **Средний балл за шаг 2:** (80 + 95 + 85) / 3 = **86.7/100**
+- **Средний балл за шаг 1:** 85/100
+- **Всего потрачено:** ~2.2 ч (инициализация + шаг 1 + начало шага 2)
 
-## 🧠 Что изучено ранее
+### Следующие шаги
+- **2D:** Расширить `Money` (add/subtract, Comparable, защита от смешивания валют, BigDecimal vs double)
+- **Мини-экзамен шага 2:** контракт hashCode/equals + immutability на 2-3 примерах
+- **Шаг 3:** Stream API + Optional + лямбды
 
-См. `COURSE_HANDBOOK.md`, раздел «Профиль ученика» и блоки курсов №1 и №2.
+## 🧠 Что изучено
+
+### Шаг 1 (Collections framework, ✅ 11-12.09.2026)
+- ArrayList внутри (массив + add(i, x) сдвигает хвост), LinkedList (двусвязный список)
+- ArrayList в 2700x быстрее на `get(i)`, в 66x медленнее на `add(0, x)`, ~2x медленнее на `addLast`
+- HashMap: массив бакетов, hash → индекс, цепочки → дерево (Java 8+)
+- Контракт equals/hashCode: согласованность обязательна, иначе HashMap теряет данные
+- Two Sum: HashMap O(n) в 10⁶ раз быстрее brute force O(n²) на n=1M
+- Stream API: `Collectors.groupingBy` + `summingLong`/`counting`/`mapping`, `sorted().limit()` для top-K
+- `record` — компактный immutable класс (Java 14+)
+
+### Шаг 2 (Generics/equals/hashCode/immutability, ⏳ 12-13.09.2026)
+- 2A Generics: `?` (любой тип), `? extends T` (producer — чтение), `? super T` (consumer — запись), PECS
+- 2B Money value object: `final class` + `final` поля, `Objects.requireNonNull`, equals через `instanceof` pattern matching, hashCode через `Objects.hash`, `toString` через `toPlainString`
+- 2C Account immutable: defensive copy через `List.copyOf` в конструкторе, immutable возврат из геттера
+- String immutability: HashMap ключи + thread-safety + String Pool + security
+
+См. `LEARNING_LOG.md` — подробные разборы и шпаргалки.
 
 ## 📚 Где что лежит
 

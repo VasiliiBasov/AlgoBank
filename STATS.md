@@ -22,7 +22,7 @@
 
 **Текущий шаг:** 2 / 26 — Generics, equals/hashCode, immutability
 
-**Последнее обновление:** 12.09.2026 (шаг 1 завершён, 85/100)
+**Последнее обновление:** 13.09.2026 (шаг 2 в работе: A/B/C завершены, 2D и мини-экзамен впереди)
 
 ---
 
@@ -43,6 +43,7 @@
 | 6 | 12.09.2026 | Шаг 1 мини-экзамен (ArrayList vs LinkedList — 85/100) | 0.2 |
 | 7 | 12.09.2026 | Шаг 2A: Generics (PECS, ? extends/super) — 80/100 | 0.5 |
 | 8 | 12.09.2026 | Шаг 2B: Money value object (equals/hashCode, final, pattern matching) — 95/100 | 0.5 |
+| 9 | 13.09.2026 | Шаг 2C: Account immutable + defensive copy (List.copyOf, final class) — 85/100 | 0.5 |
 
 ---
 
@@ -52,7 +53,7 @@
 |-----|------|--------|------|------|
 | 0 | Инициализация проекта | ✅ done | — | 11.09.2026 |
 | 1 | Collections framework | ✅ done | 85 | 12.09.2026 |
-| 2 | Generics, equals/hashCode, immutability | ⏳ ahead | — | — |
+| 2 | Generics, equals/hashCode, immutability | ⏳ in progress (A ✅, B ✅, C ✅) | — | 12-13.09.2026 |
 | ... | ... | ⏳ ahead | — | — |
 
 ---

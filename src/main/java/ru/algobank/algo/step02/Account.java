@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 import java.util.Objects;
+
 import ru.algobank.algo.step01.TransactionGrouping.Transaction;
 
 import static java.util.List.*;
@@ -24,9 +25,11 @@ public final class Account {
     public String getOwner() {
         return owner;
     }
+
     public Money getBalance() {
         return balance;
     }
+
     public List<Transaction> getHistory() {
         return history;
     }

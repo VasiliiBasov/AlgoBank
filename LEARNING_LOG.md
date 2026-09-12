@@ -122,4 +122,92 @@ Algoritm/
 
 ---
 
-*Файл создан 11.09.2026 при старте AlgoBank.*
+---
+
+## Шаг 1: Collections framework (✅ 11-12.09.2026, 85/100)
+
+### 1A: ArrayList vs LinkedList benchmark (11.09.2026)
+- ArrayList внутри — массив, `add(0, x)` сдвигает хвост на n-1 элементов вправо → O(n)
+- LinkedList внутри — двусвязный список, `add(0, x)` O(1), но `get(i)` O(i)
+- **Замеры на n=10⁵:** `get(i)` ArrayList 2700x быстрее, `add(0,x)` ArrayList 66x медленнее, `addLast` ArrayList ~2x медленнее
+- **Cache locality:** ArrayList — contiguous memory, CPU prefetcher работает
+- **Вердикт:** для Account.transactions — ArrayList (чтений больше)
+
+### 1B: HashMap playground (11.09.2026)
+- `Map<String, Long>` с балансами клиентов
+- HashMap: массив бакетов, hash → индекс через `hash & (capacity-1)`, цепочки → дерево при 8+ коллизиях
+- **Контракт equals/hashCode:** `a.equals(b) → a.hashCode() == b.hashCode()` обязательно
+- **Нарушение:** HashMap ищет в другом бакете → null, данные потеряны
+
+### 1C: Two Sum (12.09.2026)
+- **HashMap O(n):** `for i: if map.contains(target-i) → return; map.put(nums[i], i)`
+- **Brute force O(n²):** два вложенных цикла
+- **На n=10⁶:** HashMap 10⁶ оп vs brute force 10¹² → в 10⁶ раз быстрее
+
+### 1D: Transaction grouping (12.09.2026)
+- `record Transaction(String client, String type, long amountKopecks)` — immutable POJO
+- Stream: `groupingBy(type, summingLong(amountKopecks))`, `groupingBy(client, counting())`, `sorted+limit` для top-K
+
+### Мини-экзамен шага 1 (85/100)
+- ArrayList vs LinkedList для Account.transactions → ArrayList ✅
+- **Не хватало:** cache locality + memory layout
+
+---
+
+## Шаг 2: Generics, equals/hashCode, immutability (⏳ 12-13.09.2026)
+
+### 2A: Generics playground (12.09.2026, 80/100)
+- **`List<?>`** — любой тип, можно читать (Object), нельзя писать
+- **`List<? extends Number>`** — producer, читаем Number, писать нельзя
+- **`List<? super Integer>`** — consumer, пишем Integer, читаем только Object
+- **PECS:** Producer Extends, Consumer Super
+- **Type erasure:** в рантайме `List<String>` = `List<Object>`
+- **Почему нельзя `new T()`:** после стирания `T` = `Object`, не знаем тип
+- **Решения:** `Class<T>`, `Supplier<T>`, reified generics (Kotlin)
+- **Ошибка ученика:** `addIntegers(List<? super Number>)` вместо `? super Integer` — работало из-за авто-боксинга, но семантика неправильная
+
+### 2B: Money value object (12.09.2026, 95/100)
+- **`final class Money`** — запрет наследования
+- **`final` поля** + `Objects.requireNonNull` в конструкторе
+- **equals через pattern matching** (Java 16+): `if (!(o instanceof Money money)) return false;`
+- **hashCode:** `Objects.hash(...)`
+- **toString:** `amount.toPlainString()` — без экспоненты
+- **Нюанс BigDecimal:** `new BigDecimal("100.50").equals(new BigDecimal("100.5"))` → false. Для денег правильнее `compareTo(...) == 0`
+- **Почему final на классе:** иначе `BonusMoney extends Money` ломает симметричность → HashMap теряет данные
+
+### 2C: Account immutable (13.09.2026, 85/100)
+- **Defensive copy в конструкторе:** `this.history = List.copyOf(history);` — копия + immutable
+- **Альтернативы:** `Collections.unmodifiableList(new ArrayList<>(history))` (копия + view), `Collections.unmodifiableList(history)` (только view, ОПАСНО)
+- **Безопасный геттер:** `return history;` (уже immutable)
+- **Иммутабельность = thread-safety бесплатно**
+- **Иммутабельность = кэшируемый hashCode**
+- **Забыл `final` на классе** — без него можно сломать контракт
+- **String immutability причины:** HashMap + thread-safety + **String Pool** (главная) + security
+- **HashMap/HashSet/LinkedHashMap/Hashtable/IdentityHashMap/WeakHashMap/ConcurrentHashMap** — все используют hashCode
+- **TreeMap/TreeSet** — НЕ используют, используют compareTo
+
+### Шпаргалки для собеса
+
+#### HashCode & Equals
+- **Контракт:** `a.equals(b) → a.hashCode() == b.hashCode()` (обратное НЕ обязательно)
+- **Шаблон equals:** `this == o → true; o instanceof T t → fields; else → false`
+- **Шаблон hashCode:** `Objects.hash(field1, field2, ...)`
+- **HashMap:** hash → bucket index через `hash & (n-1)`, цепочки → дерево при 8+
+- **Коллизия:** разные hashCode → один bucket. По hash ищем bucket, по equals — внутри
+
+#### Immutability
+- **Правило:** `final` класс + `final` поля + `Objects.requireNonNull` + defensive copy для mutable
+- **Defensive copy:** вход `List.copyOf(...)` или `new ArrayList<>(...)`, выход `List.copyOf` или `Collections.unmodifiableList`
+- **Где:** ключи в HashMap, thread-safe без synchronized, кэшируемый hashCode
+- **String immutability:** String Pool + HashMap + thread-safety + security
+
+#### Generics
+- **Wildcards:** `?` (любой), `? extends T` (producer), `? super T` (consumer)
+- **PECS:** Producer Extends, Consumer Super
+- **Type erasure:** в рантайме тип стёрт
+- **Нельзя:** `new T()`, `new T[size]`, `instanceof T` (с типом, не wildcard)
+- **Можно:** `Class<T>`, `Supplier<T>`, reified (Kotlin)
+
+---
+
+*Обновлено 13.09.2026 после шага 2C.*
