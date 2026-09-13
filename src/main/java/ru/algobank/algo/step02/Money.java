@@ -1,16 +1,41 @@
 package ru.algobank.algo.step02;
 
 import java.math.BigDecimal;
-import java.util.Currency;
-import java.util.Objects;
+import java.util.*;
 
-public final class Money {
+public final class Money implements  Comparable<Money>{
     private final BigDecimal amount;
     private final Currency currency;
 
     public Money(BigDecimal amount, Currency currency) {
         this.amount = Objects.requireNonNull(amount, "amount");
         this.currency = Objects.requireNonNull(currency, "currency");
+    }
+
+    public static Money of(String amount, String currencyCode) {
+        return new Money(new BigDecimal(amount), Currency.getInstance(currencyCode));
+    }
+
+    public static Money zero(Currency currency) {
+        return new Money(new BigDecimal(0), currency);
+    }
+
+    public Money add(Money other) {
+        requireSameCurrency(other);
+        return new Money(amount.add(other.amount), currency);
+    }
+
+    private void requireSameCurrency(Money other) {
+        if (!this.currency.equals(other.currency)) {
+            throw new IllegalArgumentException("Currency mismatch: " + this.currency + " vs " + other.currency);
+        }
+    }
+
+    @Override
+    public int compareTo(Money other) {
+        Objects.requireNonNull(other, "other");
+        requireSameCurrency(other);
+        return amount.compareTo(other.amount);
     }
 
     @Override
@@ -31,13 +56,25 @@ public final class Money {
     }
 
     public static void main(String[] args) {
-        Money m1 = new Money(new BigDecimal("100.50"), Currency.getInstance("RUB"));
-        Money m2 = new Money(new BigDecimal("100.50"), Currency.getInstance("RUB"));
-        Money m3 = new Money(new BigDecimal("100.50"), Currency.getInstance("USD"));
+        Money balance = Money.of("100.50", "RUB");
+        Money deposit = Money.of("50.25", "RUB");
+        Money total = balance.add(deposit);
+        System.out.println("Total: " + total);  // 150.75 RUB
 
-        System.out.println("m1.equals(m2): " + m1.equals(m2));     // true
-        System.out.println("m1.equals(m3): " + m1.equals(m3));     // false
-        System.out.println("m1.hashCode() == m2.hashCode(): " + (m1.hashCode() == m2.hashCode()));  // true
-        System.out.println("m1: " + m1);                            // 100.50 RUB
+        // Защита от смешивания валют
+        Money usd = Money.of("100.00", "USD");
+        try {
+            balance.add(usd);
+        } catch (IllegalArgumentException e) {
+            System.out.println("✓ Защита от смешивания валют: " + e.getMessage());
+        }
+
+        // Сортировка
+        List<Money> list = new ArrayList<>();
+        list.add(Money.of("100", "RUB"));
+        list.add(Money.of("50", "RUB"));
+        list.add(Money.of("200", "RUB"));
+        Collections.sort(list);
+        System.out.println("Sorted: " + list);  // [50.00 RUB, 100.00 RUB, 200.00 RUB]
     }
 }
