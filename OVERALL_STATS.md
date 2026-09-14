@@ -22,7 +22,7 @@
 |---|--------|------|--------|-------|-------|------|-------------------|
 | 1 | **SpringCoreProject** | Spring Core (без Boot) | ✅ Завершён | 12 / 12 | 17.2 | ~85% | `SpringCoreProject/COURSE_HANDBOOK.md` |
 | 2 | **SpringBootProject** | Spring Boot + JPA + Security | ⏳ В процессе | 9 / 15 (шаг 9 закрыт) | 21.7+ | ~82% | `SpringBootProject/COURSE_HANDBOOK.md` |
-| 3 | **AlgoBank** | **Java Core повт. + Spring Boot + Алгоритмы + SQL** | ⏳ В процессе | **2 / 26** (шаги 1, 2 в работе) | **2.2** (старт 11.09.2026, идёт) | ~86% (по 2A/2B/2C) | `Algoritm/COURSE_HANDBOOK.md` |
+| 3 | **AlgoBank** | **Java Core повт. + Spring Boot + Алгоритмы + SQL** | ⏳ В процессе | **2 / 26** (шаги 1, 2 завершены, шаг 3 следующий) | **2.7** (старт 11.09.2026, идёт) | **87%** (шаг 1: 85, шаг 2: 89.6) | `Algoritm/COURSE_HANDBOOK.md` |
 
 ### Не использовать как проекты в этой статистике
 
@@ -82,7 +82,8 @@
 
 - [x] **Шаг 0:** Инициализация проекта
 - [x] **Шаг 1:** Collections framework (List/Set/Map, HashMap внутри) — 85/100
-- [⏳] **Шаг 2:** Generics, equals/hashCode, immutability (A/B/C ✅, 2D и экзамен впереди) — ~86%
+- [x] **Шаг 2:** Generics, equals/hashCode, immutability (2A, 2B, 2C, 2D, мини-экзамен ✅) — 89.6/100
+- [ ] **Шаг 3:** Stream API + Optional + лямбды (использовали в шаге 1D — TransactionGrouping, сейчас углубимся)
 - [ ] **Шаг 3:** Stream API + Optional + лямбды
 - [ ] **Шаг 4:** Records, sealed, pattern matching (Java 21)
 - [ ] **Шаги 5-14:** Spring Boot (REST, JPA, Security, JWT, кэш, тесты) внутри AlgoBank
@@ -130,7 +131,7 @@
 - [x] Spring Security basics (SpringBootProject, шаг 9 ✅, ~87%)
 - [ ] Защитить endpoints через Spring Security + JWT (SpringBootProject, шаг 10)
 - [ ] Написать интеграционный тест с `@SpringBootTest` (SpringBootProject, шаг 12)
-- [ ] **Уверенный Java Core** (AlgoBank, шаги 1-4) — ⏳ шаг 1 ✅, шаг 2 в работе
+- [ ] **Уверенный Java Core** (AlgoBank, шаги 1-4) — ⏳ шаг 1 ✅, шаг 2 ✅, шаг 3-4 впереди
 - [ ] **60+ алгоритмических задач** (AlgoBank, шаги 1-25)
 - [ ] **SQL JOIN/CTE/оконные функции + EXPLAIN** (AlgoBank, шаги 18-19)
 - [ ] **Многопоточность** (AlgoBank, шаги 15-16)
@@ -166,8 +167,8 @@
 
 ---
 
-| AlgoBank | 11.09.2026 → _TBD_ | 2.2 (в процессе) |
-| **ИТОГО** | | **41.1+ ч** |
+| AlgoBank | 11.09.2026 → _TBD_ | 2.7 (в процессе) |
+| **ИТОГО** | | **41.6+ ч** |
 
 **Средняя скорость по Core:** ~1.4 ч/шаг
 

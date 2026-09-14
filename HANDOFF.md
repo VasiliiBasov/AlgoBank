@@ -26,17 +26,15 @@
 
 ## 📊 Текущий статус
 
-- **Шаг:** 2 / 26 (Generics, equals/hashCode, immutability — в работе)
+- **Шаг:** 3 / 26 (Stream API + Optional + лямбды — следующий)
 - **Дата старта:** 11.09.2026
-- **Завершённые подшаги:** 2A ✅ (Generics), 2B ✅ (Money), 2C ✅ (Account immutable)
-- **Средний балл за шаг 2:** (80 + 95 + 85) / 3 = **86.7/100**
+- **Завершённые шаги:** 0 ✅, 1 ✅ (Collections, 85/100), 2 ✅ (Generics + equals/hashCode/immutability, 89.6/100)
 - **Средний балл за шаг 1:** 85/100
-- **Всего потрачено:** ~2.2 ч (инициализация + шаг 1 + начало шага 2)
+- **Средний балл за шаг 2:** 89.6/100
+- **Всего потрачено:** ~2.7 ч (инициализация + шаг 1 + шаг 2)
 
-### Следующие шаги
-- **2D:** Расширить `Money` (add/subtract, Comparable, защита от смешивания валют, BigDecimal vs double)
-- **Мини-экзамен шага 2:** контракт hashCode/equals + immutability на 2-3 примерах
-- **Шаг 3:** Stream API + Optional + лямбды
+### Следующий шаг
+- **Шаг 3:** Stream API + Optional + лямбды — уже немного использовали в шаге 1D (TransactionGrouping), сейчас углубимся
 
 ## 🧠 Что изучено
 
@@ -49,11 +47,13 @@
 - Stream API: `Collectors.groupingBy` + `summingLong`/`counting`/`mapping`, `sorted().limit()` для top-K
 - `record` — компактный immutable класс (Java 14+)
 
-### Шаг 2 (Generics/equals/hashCode/immutability, ⏳ 12-13.09.2026)
+### Шаг 2 (Generics/equals/hashCode/immutability, ✅ 12-14.09.2026, 89.6/100)
 - 2A Generics: `?` (любой тип), `? extends T` (producer — чтение), `? super T` (consumer — запись), PECS
 - 2B Money value object: `final class` + `final` поля, `Objects.requireNonNull`, equals через `instanceof` pattern matching, hashCode через `Objects.hash`, `toString` через `toPlainString`
 - 2C Account immutable: defensive copy через `List.copyOf` в конструкторе, immutable возврат из геттера
+- 2D Money extended: `implements Comparable<Money>`, `add/subtract/multiply`, фабрики `Money.of(...)`, защита от смешивания валют
 - String immutability: HashMap ключи + thread-safety + String Pool + security
+- **Главное:** `compareTo` должен быть согласован с `equals` (HashSet vs TreeSet дают одинаковый ответ только если согласованы)
 
 См. `LEARNING_LOG.md` — подробные разборы и шпаргалки.
 

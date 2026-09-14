@@ -12,9 +12,8 @@
 
 ## 📌 Где мы сейчас
 
-**Текущий шаг:** 1 / 26 (Collections framework — экспресс-повторение Java Core)
-**Прогресс шага 1:** A ✅ / B ⏳ / C ⏳ / D ⏳
-**Процент:** 0% (0/26)
+**Текущий шаг:** 3 / 26 (Stream API + Optional + лямбды)
+**Процент:** 8% (2/26)
 
 **Что сделано в шаге 0 (служебный, инициализация, 11.09.2026):**
 - ✅ Почищен Maven Archetype-артефакт (был `archetype-resources/`, `META-INF/maven/`)
@@ -82,9 +81,26 @@
   - Файл `src/main/java/ru/algobank/algo/step02/Money.java`
   - Коммит `297de8c`
   - Оценка: 95/100 (не упомянул симметричность equals + нюанс BigDecimal scale)
-- ⏳ **C** — Immutability (defensive copies)
-- ⏳ **D** — Задача на Money (сложение, equals с разными scale, валютные операции)
-- ⏳ Мини-экзамен шага 2
+- ✅ **C** — Immutability (defensive copies) — завершён 13.09.2026, 85/100 (забыл `final` на классе, исправлено)
+- ✅ **D** — Money extended (Comparable, add/subtract, фабрики, currency guard) — завершён 13.09.2026, 95/100
+- ✅ Мини-экзамен шага 2 — завершён 14.09.2026, 93/100
+
+## 🎉 Шаг 2 полностью завершён (14.09.2026)
+
+**Прогресс шага 2:** 2A (80) + 2B (95) + 2C (85) + 2D (95) + Экзамен (93) = **89.6/100**
+
+**Файлы шага 2:**
+- `GenericsPlayground.java` — PECS, wildcards (коммит `1dc55ab`)
+- `Money.java` — value object с Comparable (коммиты `297de8c` → `77dae51`)
+- `Account.java` — immutable с defensive copy (коммит `05d3466`)
+- `ImmutablePoint.java` — тренировка value object (коммит `ed36bfb`)
+
+**Ключевые открытия шага 2:**
+- `compareTo` должен быть согласован с `equals` (иначе HashSet и TreeSet дают разные ответы)
+- String immutability: String Pool + HashMap + thread-safety + security
+- Defensive copy на входе и выходе из геттера — единственный способ сделать Account реально immutable
+
+**Следующий шаг:** шаг 3 — Stream API + Optional + лямбды
 
 ---
 

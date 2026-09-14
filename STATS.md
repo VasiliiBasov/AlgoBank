@@ -10,19 +10,19 @@
 
 ```
 Шаг:  0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26
-       ◉   ◉   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○
+       ◉   ◉   ◉   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○
        ◉ init/done  ○ ahead
 ```
 
 **Процент прохождения:**
 
 ```
-|████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░| 4% (1/26)
+|████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░| 8% (2/26)
 ```
 
-**Текущий шаг:** 2 / 26 — Generics, equals/hashCode, immutability
+**Текущий шаг:** 3 / 26 — Stream API + Optional + лямбды
 
-**Последнее обновление:** 13.09.2026 (шаг 2 в работе: A/B/C завершены, 2D и мини-экзамен впереди)
+**Последнее обновление:** 14.09.2026 (шаг 2 завершён, 89.6/100)
 
 ---
 
@@ -44,6 +44,8 @@
 | 7 | 12.09.2026 | Шаг 2A: Generics (PECS, ? extends/super) — 80/100 | 0.5 |
 | 8 | 12.09.2026 | Шаг 2B: Money value object (equals/hashCode, final, pattern matching) — 95/100 | 0.5 |
 | 9 | 13.09.2026 | Шаг 2C: Account immutable + defensive copy (List.copyOf, final class) — 85/100 | 0.5 |
+| 10 | 13.09.2026 | Шаг 2D: Money extended (Comparable, add/subtract, factories, currency guard) — 95/100 | 0.4 |
+| 11 | 14.09.2026 | Шаг 2 мини-экзамен (HashSet/TreeSet + requireSameCurrency + ImmutablePoint код) — 93/100 | 0.3 |
 
 ---
 
@@ -53,7 +55,7 @@
 |-----|------|--------|------|------|
 | 0 | Инициализация проекта | ✅ done | — | 11.09.2026 |
 | 1 | Collections framework | ✅ done | 85 | 12.09.2026 |
-| 2 | Generics, equals/hashCode, immutability | ⏳ in progress (A ✅, B ✅, C ✅) | — | 12-13.09.2026 |
+| 2 | Generics, equals/hashCode, immutability | ✅ done | 89.6 | 12-14.09.2026 |
 | ... | ... | ⏳ ahead | — | — |
 
 ---
@@ -65,6 +67,7 @@
 | # | Шаг | Тема мини-экзамена | Балл | Дата |
 |---|-----|---------------------|------|------|
 | 1 | 1 | ArrayList vs LinkedList для Account.transactions (почему ArrayList) | 85 | 12.09.2026 |
+| 2 | 2 | HashSet vs TreeSet для Money + requireSameCurrency в compareTo + ImmutablePoint код | 93 | 14.09.2026 |
 
 ---
 

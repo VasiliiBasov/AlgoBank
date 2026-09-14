@@ -154,7 +154,7 @@ Algoritm/
 
 ---
 
-## Шаг 2: Generics, equals/hashCode, immutability (⏳ 12-13.09.2026)
+## Шаг 2: Generics, equals/hashCode, immutability (✅ 12-14.09.2026, 89.6/100)
 
 ### 2A: Generics playground (12.09.2026, 80/100)
 - **`List<?>`** — любой тип, можно читать (Object), нельзя писать
@@ -186,6 +186,21 @@ Algoritm/
 - **HashMap/HashSet/LinkedHashMap/Hashtable/IdentityHashMap/WeakHashMap/ConcurrentHashMap** — все используют hashCode
 - **TreeMap/TreeSet** — НЕ используют, используют compareTo
 
+### 2D: Money extended (13.09.2026, 95/100)
+- **`Comparable<Money>` + `@Override compareTo`** — сортировка через `Collections.sort`, TreeSet, PriorityQueue
+- **Контракт compareTo:** отрицательный/ноль/положительный; транзитивность; консистентность; согласованность с equals (РЕКОМЕНДУЕТСЯ)
+- **Integer vs IllegalStateException:** аргументы → `IllegalArgumentException`, состояние объекта → `IllegalStateException`
+- **`requireSameCurrency` в compareTo:** без неё `100 RUB == 100 USD` → TreeSet потеряет элементы, sort упадёт
+- **Статические фабрики:** `Money.of(String, String)` удобнее конструктора + `Money.zero(Currency)`
+- **`BigDecimal.ZERO`** вместо `new BigDecimal(0)` — идиоматичнее
+- **BigDecimal vs double:** double — IEEE 754 приближённое (`0.1 + 0.2 = 0.30000000000000004`), BigDecimal — точное, для денег обязательно
+- **Нюанс BigDecimal scale:** `100.50.equals(100.5)` = false, но `100.50.compareTo(100.5) == 0`. Для денег правильнее compareTo
+
+### Мини-экзамен шага 2 (14.09.2026, 93/100)
+- **Q1 HashSet vs TreeSet с согласованным compareTo** — 10/10: «не будет разницы, т.к. compareTo согласован с equals»
+- **Q2 requireSameCurrency** — 8/10: «100 RUB == 100 USD было бы неверное сравнение». Не упомянул TreeSet потеряет элементы
+- **Q3 ImmutablePoint код** — 10/10: правильный код, корректный вывод
+
 ### Шпаргалки для собеса
 
 #### HashCode & Equals
@@ -208,6 +223,14 @@ Algoritm/
 - **Нельзя:** `new T()`, `new T[size]`, `instanceof T` (с типом, не wildcard)
 - **Можно:** `Class<T>`, `Supplier<T>`, reified (Kotlin)
 
+#### Comparable vs Comparator
+- **Comparable:** в самом классе, `implements Comparable<T>`, `int compareTo(T other)`, один «естественный» порядок
+- **Comparator:** отдельный класс/лямбда, `int compare(T a, T b)`, сколько угодно порядков
+- **compareTo контракт:** знак, транзитивность, консистентность, NPE на null, **согласованность с equals (рекомендуется)**
+- **Comparable даёт бесплатно:** `Collections.sort`, `list.sort(null)`, `TreeSet`, `TreeMap`, `PriorityQueue`, `stream.sorted()`
+- **Нарушение согласованности:** BigDecimal — `HashSet` size=2, `TreeSet` size=1 (классический пример)
+- **IllegalArgumentException** vs **IllegalStateException:** аргументы метода vs состояние объекта
+
 ---
 
-*Обновлено 13.09.2026 после шага 2C.*
+*Обновлено 14.09.2026 после мини-экзамена шага 2.*
