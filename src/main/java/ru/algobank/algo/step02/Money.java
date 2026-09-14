@@ -17,7 +17,7 @@ public final class Money implements  Comparable<Money>{
     }
 
     public static Money zero(Currency currency) {
-        return new Money(new BigDecimal(0), currency);
+        return new Money(BigDecimal.ZERO, currency);
     }
 
     public Money add(Money other) {
