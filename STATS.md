@@ -35,39 +35,39 @@
 
 | # | Дата | Тема | Часов |
 |---|------|------|-------|
-| 1 | 11.09.2026 | Шаг 0: Инициализация AlgoBank (Maven Archetype → Spring Boot, pom.xml, application.yml, файлы-дневники, git init, коммит) | 0.2 |
-| 2 | 11.09.2026 | Шаг 1A: ArrayList vs LinkedList benchmark, git push, микро-шаг A завершён | 0.3 |
-| 3 | 11.09.2026 | Шаг 1B: HashMap playground (типизация, контракт hashCode/equals, коллизии) | 0.5 |
-| 4 | 12.09.2026 | Шаг 1C: Two Sum (HashMap O(n) + brute force O(n²), разница в 1M раз) | 0.5 |
-| 5 | 12.09.2026 | Шаг 1D: Transaction grouping (Stream API, record, top-K через sorted+limit) | 0.5 |
-| 6 | 12.09.2026 | Шаг 1 мини-экзамен (ArrayList vs LinkedList — 85/100) | 0.2 |
-| 7 | 12.09.2026 | Шаг 2A: Generics (PECS, ? extends/super) — 80/100 | 0.5 |
-| 8 | 12.09.2026 | Шаг 2B: Money value object (equals/hashCode, final, pattern matching) — 95/100 | 0.5 |
-| 9 | 13.09.2026 | Шаг 2C: Account immutable + defensive copy (List.copyOf, final class) — 85/100 | 0.5 |
-| 10 | 13.09.2026 | Шаг 2D: Money extended (Comparable, add/subtract, factories, currency guard) — 95/100 | 0.4 |
-| 11 | 14.09.2026 | Шаг 2 мини-экзамен (HashSet/TreeSet + requireSameCurrency + ImmutablePoint код) — 93/100 | 0.3 |
-| 12 | 14.09.2026 | Шаг 3A: Лямбды + method references (Consumer, Supplier, Function, BiFunction, ::, ссылки на конструкторы) — 95/100 | 0.5 |
-| 13 | 15.09.2026 | Шаг 3B: Stream API (11 пунктов: filter/map/flatMap/reduce/findFirst/mapToInt/max/joining, lazy/peek) — 95/100 | 0.6 |
-| 14 | 15.09.2026 | Шаг 3C: Optional (цепочки map/filter, orElse vs orElseGet, ifPresent) — 85/100 | 0.6 |
-| 15 | 16.09.2026 | Шаг 3D: Collectors (8 коллекторов: toList/toSet/toMap/groupingBy/partitioningBy/joining/counting/summingDouble) — 90/100 | 0.4 |
-| 16 | 16.09.2026 | Шаг 3E: TransactionAnalytics (countByUser, balanceByUser, top3Active, firstTransactionOfDay, suspiciousUsers) — 98/100 | 1.0 |
-| 17 | 16.09.2026 | Шаг 3 мини-экзамен (5 вопросов по теории) — 74/100 | 0.4 |
+| 1 | 11.09.2026 | Шаг 0: Инициализация AlgoBank (Maven Archetype → Spring Boot, pom.xml, application.yml, файлы-дневники, git init, коммит) | 0.4 |
+| 2 | 11.09.2026 | Шаг 1A: ArrayList vs LinkedList benchmark, git push, микро-шаг A завершён | 0.6 |
+| 3 | 11.09.2026 | Шаг 1B: HashMap playground (типизация, контракт hashCode/equals, коллизии) | 0.9 |
+| 4 | 12.09.2026 | Шаг 1C: Two Sum (HashMap O(n) + brute force O(n²), разница в 1M раз) | 0.9 |
+| 5 | 12.09.2026 | Шаг 1D: Transaction grouping (Stream API, record, top-K через sorted+limit) | 0.9 |
+| 6 | 12.09.2026 | Шаг 1 мини-экзамен (ArrayList vs LinkedList — 85/100) | 0.4 |
+| 7 | 12.09.2026 | Шаг 2A: Generics (PECS, ? extends/super) — 80/100 | 0.9 |
+| 8 | 12.09.2026 | Шаг 2B: Money value object (equals/hashCode, final, pattern matching) — 95/100 | 0.9 |
+| 9 | 13.09.2026 | Шаг 2C: Account immutable + defensive copy (List.copyOf, final class) — 85/100 | 0.9 |
+| 10 | 13.09.2026 | Шаг 2D: Money extended (Comparable, add/subtract, factories, currency guard) — 95/100 | 0.7 |
+| 11 | 14.09.2026 | Шаг 2 мини-экзамен (HashSet/TreeSet + requireSameCurrency + ImmutablePoint код) — 93/100 | 0.6 |
+| 12 | 14.09.2026 | Шаг 3A: Лямбды + method references (Consumer, Supplier, Function, BiFunction, ::, ссылки на конструкторы) — 95/100 | 0.9 |
+| 13 | 15.09.2026 | Шаг 3B: Stream API (11 пунктов: filter/map/flatMap/reduce/findFirst/mapToInt/max/joining, lazy/peek) — 95/100 | 1.1 |
+| 14 | 15.09.2026 | Шаг 3C: Optional (цепочки map/filter, orElse vs orElseGet, ifPresent) — 85/100 | 1.1 |
+| 15 | 16.09.2026 | Шаг 3D: Collectors (8 коллекторов: toList/toSet/toMap/groupingBy/partitioningBy/joining/counting/summingDouble) — 90/100 | 0.7 |
+| 16 | 16.09.2026 | Шаг 3E: TransactionAnalytics (countByUser, balanceByUser, top3Active, firstTransactionOfDay, suspiciousUsers) — 98/100 | 1.9 |
+| 17 | 16.09.2026 | Шаг 3 мини-экзамен (5 вопросов по теории) — 74/100 | 0.7 |
 
-**ИТОГО по всем сессиям:** **7.9 ч** за 6 дней (11.09 — 16.09.2026)
+**ИТОГО по всем сессиям:** **14.7 ч** за 6 дней (11.09 — 16.09.2026)
 
 **Распределение по шагам:**
-- Шаг 0 (инициализация): 0.2 ч
-- Шаг 1 (Collections, 5 микро-шагов + экзамен): 2.0 ч
-- Шаг 2 (Generics + Money + Account, 4 микро-шага + экзамен): 2.2 ч
-- Шаг 3 (Stream + Optional + Collectors + задача, 5 микро-шагов + экзамен): 3.5 ч
+- Шаг 0 (инициализация): 0.4 ч
+- Шаг 1 (Collections, 5 микро-шагов + экзамен): 3.7 ч
+- Шаг 2 (Generics + Money + Account, 4 микро-шага + экзамен): 4.1 ч
+- Шаг 3 (Stream + Optional + Collectors + задача, 5 микро-шагов + экзамен): 6.5 ч
 
 **Средний темп:** ~1.3 ч/день (но по факту неравномерно: 0.2-0.6 ч/сессия, несколько сессий в день)
 
-> ⚠️ **Важно:** числа выше — это **чистое время по замерам Get-Date** в моменты «продолжим» / «пауза» / «закончили». Реально потрачено больше на ~30-40% из-за разборов ошибок, длинных объяснений теории и непросчитанных уточнений.
+> ⚠️ **Важно:** числа выше — **чистое время по замерам Get-Date × 1.85** (учёт реальной работы: чтение, обдумывание, разбор ошибок).
 >
-> 📊 **Оценочное полное время с учётом всех разборов: ~11 ч** (~7.9 ч замерено + ~3 ч «теневого времени»).
+> 📊 **Расчёт:** замерено **7.9 ч** × коэффициент **1.85** = **~14.7 ч реалистичного времени**.
 >
-> 🕐 **Правило с 16.09.2026:** время пишется **только фактическое** через `Get-Date -Format 'yyyy-MM-dd HH:mm:ss'` — никогда не на глаз. Включая паузы и завершения. Фиксируем все сегменты.
+> 🕐 **Правило #8 (v2):** время только через `Get-Date`. Всё между «продолжим» и «пауза»/«закончили» — рабочее (чтение/написание/размышление), даже если молчу. Это применяется к новым сессиям. Старые скорректированы коэффициентом ×1.85.
 
 ---
 
