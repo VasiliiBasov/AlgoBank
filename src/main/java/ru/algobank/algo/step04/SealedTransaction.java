@@ -3,6 +3,7 @@ package ru.algobank.algo.step04;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -140,8 +141,8 @@ public class SealedTransaction {
         toCsv(txs).forEach(System.out::println);
 
         System.out.println("\n=== summarize ===");
-        txs.stream().forEach(tx -> {
-            System.out.println(summarize(tx));
-        });
+        Map<String, Long> stats = txs.stream()
+                .collect(Collectors.groupingBy(SealedTransaction::summarize, Collectors.counting()));
+        stats.forEach((k, v) -> System.out.println(k + ": " + v));
     }
 }

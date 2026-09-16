@@ -84,7 +84,7 @@
 - [x] **Шаг 1:** Collections framework (List/Set/Map, HashMap внутри) — 85/100
 - [x] **Шаг 2:** Generics, equals/hashCode, immutability (2A, 2B, 2C, 2D, мини-экзамен ✅) — 89.6/100
 - [x] **Шаг 3:** Stream API + Optional + лямбды + Collectors (3A, 3B, 3C, 3D, 3E, мини-экзамен ✅) — 89.5/100 (~6.5 ч с ×1.85)
-- [ ] **Шаг 4:** Records, sealed, pattern matching (Java 21) — in progress (~0.8 ч по факту, без коэффициента)
+- [ ] **Шаг 4:** Records, sealed, pattern matching (Java 21) — in progress (~1.2 ч по факту, без коэффициента; 4A: 0.6, 4B: 0.3, 4C: 0.3)
 - [ ] **Шаги 5-14:** Spring Boot (REST, JPA, Security, JWT, кэш, тесты) внутри AlgoBank
 - [ ] **Шаги 15-17:** Многопоточность + JVM
 - [ ] **Шаги 18-19:** SQL для собеседования
