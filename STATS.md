@@ -55,15 +55,16 @@
 | 18 | 16.09.2026 | Шаг 4A: Records + sealed interface (3 record'а + sealed permits + switch pattern matching + describe/opKind/toCsv) — компилируется, main отрабатывает | 0.6 |
 | 19 | 16.09.2026 | Шаг 4B: record patterns + when (summarize с THRESHOLD_BIG/MED, деструктуризация Transfer(var from, var to, var amount, var date)) — компилируется, есть баги `tx.to()` вместо `from` | 0.3 |
 | 20 | 16.09.2026 | Шаг 4C: Stream + Collectors.groupingBy(summarize, counting) + method reference + баг-фикс tx.to()→tx.from() — компилируется, вывод 7 категорий | 0.3 |
+| 21 | 16.09.2026 | Шаг 4 мини-экзамен (5 вопросов: record, sealed, exhaustiveness, record pattern, when vs if) — 14/25 (56%) | 0.2 |
 
-**ИТОГО по всем сессиям:** **15.7 ч** за 6 дней (11.09 — 16.09.2026)
+**ИТОГО по всем сессиям:** **15.9 ч** за 6 дней (11.09 — 16.09.2026)
 
 **Распределение по шагам:**
 - Шаг 0 (инициализация): 0.4 ч
 - Шаг 1 (Collections, 5 микро-шагов + экзамен): 3.7 ч
 - Шаг 2 (Generics + Money + Account, 4 микро-шага + экзамен): 4.1 ч
 - Шаг 3 (Stream + Optional + Collectors + задача, 5 микро-шагов + экзамен): 6.5 ч
-- Шаг 4 (Records, sealed, pattern matching — in progress): 1.2 ч (4A: 0.6, 4B: 0.3, 4C: 0.3)
+- Шаг 4 (Records, sealed, pattern matching): 1.4 ч (4A: 0.6, 4B: 0.3, 4C: 0.3, 4Экз: 0.2) ✅ done
 
 **Средний темп:** ~1.3 ч/день (но по факту неравномерно: 0.2-0.6 ч/сессия, несколько сессий в день)
 
@@ -85,6 +86,7 @@
 | 1 | Collections framework | ✅ done | 85 | 12.09.2026 |
 | 2 | Generics, equals/hashCode, immutability | ✅ done | 89.6 | 12-14.09.2026 |
 | 3 | Stream API + Optional + лямбды + Collectors | ✅ done | 89.5 | 14-16.09.2026 |
+| 4 | Records, sealed, pattern matching (Java 21) | ✅ done | 56 (4Экз) | 16.09.2026 |
 | ... | ... | ⏳ ahead | — | — |
 
 ---
