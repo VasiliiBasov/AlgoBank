@@ -26,7 +26,7 @@
 
 ## 📊 Текущий статус
 
-- **Шаг:** 5 / 26 (Spring Boot REST basics — следующий; шаг 4 ✅ 17.09.2026)
+- **Шаг:** 5 / 26 (Spring Boot REST basics — **в работе:** 5A ✅, 5B ✅, далее 5C; шаг 4 ✅ 17.09.2026)
 - **Дата старта:** 11.09.2026
 - **Завершённые шаги:** 0 ✅, 1 ✅ (Collections, 85/100), 2 ✅ (Generics + equals/hashCode/immutability, 89.6/100), 3 ✅ (Stream API + Optional + лямбды + Collectors, 89.5/100), 4 ✅ (Records + sealed + pattern matching, 89.0/100, экзамен 56/100)
 - **Средний балл за шаг 1:** 85/100
@@ -35,11 +35,14 @@
 - **Всего потрачено:** **~15.9 ч** (шаг 0–3 с ×1.85 коэффициентом: 14.5 ч; шаг 4 по факту без коэффициента: 1.4 ч)
 - **Средний балл за шаг 4 (экзамен):** 56/100 (пробелы: exhaustiveness в switch, when-guards)
 
-### Следующий шаг
-- **Шаг 5:** Старт проекта + REST basics — `@SpringBootApplication`, `@RestController`, `@GetMapping`, embedded Tomcat (задачи: FizzBuzz, «Hello Bank»)
-- ⚠️ Разминка перед стартом: ретест 3 вопросов по шагу 4 (exhaustiveness в switch, when-guards, record patterns)
-- 🆕 Новые практики с шага 5 (правила №11-16 в LEARNING_LOG): разминка-квиз на старте сессии, JUnit-тест к каждой задаче, README.md, GitHub Actions CI, ASCII-схема архитектуры, git-тег `step-05`
-- 🪤 Security-ловушка: первый запрос к контроллеру даст 401 (security-стартер в classpath) — учебный момент, заранее НЕ чинить
+### Следующий шаг (продолжение шага 5)
+- ✅ Разминка-ретест шага 4 проведена 17.09: **38/60** — `record pattern` остался в ротации повторения (давать в разминках)
+- ✅ **5A** (автоконфигурация + первая 401 → SecurityConfig `permitAll`) и **5B** (`/api/hello` JSON + H2-консоль после двойного бага: лямбда-пустышка `PathRequest.toH2Console()` и модуль `spring-boot-h2console` в Boot 4)
+- ⏳ **5C:** `application.yml` — пирамида приоритетов (CLI > -D > env > профильный yml > общий yml > дефолты), relaxed binding, `ServerProperties`. Роздано задание 5Cα «война портов» (--server.port=9099) + 2 экзамен-вопроса (кто победит из 3 источников; что без `spring.profiles.active`) — ждём ответа. Профили ученик знает, не разжёвывать
+- ⏳ Задачи: FizzBuzz + «Hello Bank» — каждая с первым JUnit 5 тестом ученика (правило №13)
+- ⏳ Артефакты: README.md, GitHub Actions CI, ASCII-схема архитектуры (правило №14), git-тег `step-05`
+- 🆕 Новые практики с шага 5 (правила №11-16 в LEARNING_LOG): разминка-квиз на старте сессии, JUnit-тест к каждой задаче, git-теги шагов
+- ✅ Security-ловушка сыграна: первый запрос дал 401 → разобрали и временно починили SecurityConfig'ом; по-честному Security — шаг 9, JWT — шаг 10
 
 ## 🧠 Что изучено
 
@@ -84,6 +87,12 @@
 - switch по sealed-типу НЕ скомпилируется с неполным набором ветвей — нужны все permitted-типы или `default`
 - `when` — часть case-паттерна: провал гарда → идём в следующий case; `if` в теле — уже после выбора ветки
 - record pattern `case Transfer(var from, var to, ...)` безопаснее `case Transfer tx` — порядок компонентов фиксирован компилятором, опечатки вида `tx.to()` вместо `tx.from()` исключены
+
+### Шаг 5 (в работе, 17.09.2026 — факты для запоминания)
+- **Boot 4 модульный:** H2-консоль живёт в отдельном артефакте `org.springframework.boot:spring-boot-h2console`; без него `spring.h2.console.enabled=true` молча игнорируется. Похожий вынос: web-сервер в `spring-boot-web-server` (там лежит `ServerProperties`)
+- **Отладка Security:** дефолтная форма логина прячет реальный 404 → `permitAll` как временный отладочный приём обнажает истинную ошибку (сервлета консоли не было в classpath)
+- **void-совместимость лямбд:** `frame -> PathRequest.toH2Console()` компилируется, но возвращаемое значение выбрасывается (лямбда-пустышка) — классический кейс собеса
+- H2-консоль рендерится в `<frameset>` → нужен `frameOptions().sameOrigin()` (DENY по умолчанию от Spring Security)
 
 См. `LEARNING_LOG.md` — подробные разборы и шпаргалки.
 

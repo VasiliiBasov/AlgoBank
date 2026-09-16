@@ -100,6 +100,11 @@
             <version>1.20.4</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-h2console</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

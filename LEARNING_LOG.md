@@ -409,7 +409,7 @@ AlgoBank/
 (По-вопросный разбор 2-5 утерян вместе с контекстом сессии; зафиксированы итог и пробелы — этого достаточно для ретеста.)
 
 ### Решение по итогам экзамена
-- **Ретест на старте шага 5 (разминка, 3 вопроса):** exhaustiveness в switch, when vs if, порядок компонентов в record pattern
+- ✅ **Ретест на старте шага 5 — проведён 17.09.2026: 38/60.** Темы: exhaustiveness в switch, when vs if, record patterns. `record pattern` остался в ротации повторения (давать в разминках следующих сессий)
 - Правило курса усвоено заново: ошибка → письменный правильный ответ → ретест
 
 ### Сделанные ошибки для запоминания
@@ -418,4 +418,36 @@ AlgoBank/
 
 ---
 
-*Обновлено 17.09.2026 после шага 4 + коммит bddf1de (+ housekeeping-синк дневников).*
+---
+
+## Шаг 5: Старт Spring Boot + REST basics (в работе, 17.09.2026)
+
+### 5A: @SpringBootApplication, автоконфигурация, встроенный Tomcat
+- Сыграна 🪤 Security-ловушка: `security`-стартер в classpath → первый `GET /api/hello` встретила форма логина (401 за ней). Плановый разбор Security — шаг 9, пока временный конфиг
+- Ученик написал `ru.algobank.config.SecurityConfig`: `anyRequest().permitAll()`, `csrf.disable()`, TODO про JWT на шаге 9
+
+### 5B: HelloBankController + H2-консоль (двойной баг!)
+- `HelloBankController` (`@RestController`, `@GetMapping("/api/hello")`) + record `Greeting(String app, String message, Instant timestamp)` → JSON, timestamp с nanos (Jackson JavaTimeModule)
+- **Баг №1 (код):** `.frameOptions(frame -> PathRequest.toH2Console())` — лямбда-пустышка: method invocation в теле совместим с void-функциональным интерфейсом, возвращаемое значение выброшено → frameOptions остался DENY. Фикс: `frame -> frame.sameOrigin()`
+- **Баг №2 (Boot 4 модульность):** H2-консоль вынесена из spring-boot-autoconfigure в отдельный артефакт `org.springframework.boot:spring-boot-h2console` — без него `spring.h2.console.enabled=true` игнорируется. Добавлена в pom.xml (без версии, управляет BOM). Проверка: «Test successful» (`jdbc:h2:mem:algobank`, user `sa`, пустой пароль)
+- Рефрейминг: `permitAll` — отладочный приём: убрал security-ширму → обнажился истинный 404 (сервлета консоли в classpath просто не было)
+
+### 5C: application.yml вглубь (теория роздана, ждём ответов ученика)
+- **Пирамида приоритетов:** CLI `--key=val` > JVM `-Dkey=val` > OS env (`SERVER_PORT`) > `application-dev.yml` (профильный) > `application.yml` (общий) > дефолты автоконфигурации. Мнемоника: «чем ближе к запуску — тем сильнее»
+- **Relaxed binding:** `server.port` ⇄ `SERVER_PORT` (env: точки → `_`, kebab-case убирается, верхний регистр)
+- **@ConfigurationProperties:** ключи `server.*` биндятся в POJO `ServerProperties` (Boot 4: пакет `org.springframework.boot.web.server.autoconfigure`, модуль `spring-boot-web-server`). На шаге 6 — свои props-классы; собес-вопрос: `@Value` vs `@ConfigurationProperties` (группировка, валидация, IDE-автодополнение)
+- Профили ученик уже знает (SpringBootProject, шаг 2) — не разжёвывать
+- Задание 5Cα «война портов»: запуск на 9099 через `--server.port=9099` + 2 экзамен-вопроса (кто победит из трёх источников; что будет без `spring.profiles.active: dev`)
+
+### Копилка фактов шага 5 (для собеса)
+
+| Факт | Суть |
+|---|---|
+| Boot 4 модулен | H2-консоль — отдельный артефакт `spring-boot-h2console`; web-сервер — `spring-boot-web-server` |
+| Лямбда-пустышка | `x -> someFactory()` компилируется под void-ФИ, результат выбрасывается — «тихий» баг |
+| frameOptions | H2-консоль = `<frameset>` → `sameOrigin()`, иначе браузер режет (DENY от Spring Security) |
+| Пирамида конфигов | CLI > -D > env > профильный yml > общий yml > дефолты автоконфигурации |
+
+---
+
+*Обновлено 17.09.2026 (ночь): шаг 4 закрыт + ретест 38/60; шаг 5 — 5A/5B ✅, далее 5C и задачи.*
