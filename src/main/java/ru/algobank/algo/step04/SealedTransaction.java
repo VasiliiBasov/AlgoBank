@@ -3,150 +3,131 @@ package ru.algobank.algo.step04;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
- * Шаг 4: Records + sealed + pattern matching (Java 21).
- *
- * Цель: разобрать 3 концепции современного Java на банковском домене:
- * 1. record — компактный value-class для данных
- * 2. sealed interface — закрытая иерархия типов (только Deposit / Withdraw / Transfer)
- * 3. pattern matching switch — безопасная диспетчеризация по типу, компилятор следит за полнотой
- *
- * Ниже — заготовка. Методы заполни сам (где стоит ???).
- * Подсказки закомментированы в каждом методе.
+ * Шаг 4A: Records + sealed interface (Java 21).
+ * <p>
+ * Что отрабатываем:
+ * 1) record — компактный value-class (авто: ctor, аксессоры, equals, hashCode, toString)
+ * 2) sealed interface + permits — закрытая иерархия типов
+ * 3) record patterns в switch + проверка exhaustiveness
  */
 public class SealedTransaction {
 
     /* ============================================================
-     * 1) sealed-иерархия: Transaction и его разрешённые реализации
-     * ============================================================ */
-
-    /** Закрытая иерархия транзакций. Только эти 3 типа могут реализовать Transaction. */
-    public sealed interface Transaction permits Deposit, Withdraw, Transfer {
-        BigDecimal amount();
-    }
-
-    /** ??? Сделай record Deposit с полями (user, amount).
-     *  — record автоматически даёт конструктор, аксессоры (user(), amount()), equals, hashCode, toString.
-     *  — implements Transaction — обязательно, чтобы попасть в permits.
-     */
-    public record Deposit(??? user, ??? amount) implements Transaction {
-        // ничего не пиши — тело record пустое
-    }
-
-    /** ??? Сделай record Withdraw аналогично Deposit. */
-    public record Withdraw(??? user, ??? amount) implements Transaction {
-    }
-
-    /** ??? Сделай record Transfer с тремя полями: (from, to, amount). */
-    public record Transfer(??? from, ??? to, ??? amount) implements Transaction {
-    }
-
-    /* ============================================================
-     * 2) Pattern matching switch по типу (Java 21)
+     * 1) sealed-иерархия: Transaction
      * ============================================================ */
 
     /**
-     * Вернуть человекочитаемое описание транзакции.
-     * Используй switch с pattern matching по типам (case Deposit d -> ... и т.д.).
-     *
-     * Требование: обработать все 3 типа. Компилятор САМ проверит exhaustiveness,
-     * благодаря sealed + permits. Если добавим новый тип в permits — он подсветит здесь ошибку.
+     * Закрытая иерархия — только Deposit/Withdraw/Transfer могут реализовать.
+     */
+    public sealed interface Transaction permits Deposit, Withdraw, Transfer {
+        BigDecimal amount();
+
+        default boolean isLarge() {
+            return amount().compareTo(new BigDecimal("100000")) > 0;
+        }
+    }
+
+    /**
+     * record — value-class: поля final, авто-аксессоры user()/amount().
+     */
+    public record Deposit(String user, BigDecimal amount, LocalDate date) implements Transaction {
+    }
+
+    public record Withdraw(String user, BigDecimal amount, LocalDate date) implements Transaction {
+    }
+
+    public record Transfer(String from, String to, BigDecimal amount, LocalDate date) implements Transaction {
+    }
+
+    /* ============================================================
+     * 2) switch pattern matching — компилятор проверяет полноту
+     * ============================================================ */
+
+    /**
+     * Человекочитаемое описание транзакции.
      */
     public static String describe(Transaction t) {
-        // ??? верни строку через switch
-        // Пример для Deposit: "Пополнение user=X на 100.50"
-        // Пример для Withdraw: "Списание user=X на 100.50"
-        // Пример для Transfer: "Перевод from=A → to=B на 100.50"
+        // pattern matching switch по типу (Java 21)
         return switch (t) {
-            // ??? 3 case с pattern-ами
-            default -> ???;
+            case Deposit d -> "Пополнение user=" + d.user() + " на " + d.amount() + " в " + d.date();
+            case Withdraw w -> "Списание user=" + w.user() + " на " + w.amount();
+            case Transfer tx -> "Перевод " + tx.from() + " → " + tx.to() + " " + tx.amount();
+            // БЕЗ default! sealed гарантирует, что других типов нет.
+            // Если убрать один case — компилятор РУГАЕТСЯ на отсутствие ветки.
         };
     }
 
     /* ============================================================
-     * 3) Когда "сумма прихода/расхода/перевода" по-разному
+     * 3) Enum для типа операции + ещё один switch для практики
      * ============================================================ */
 
-    /**
-     * Тип операции: INCOME (деньги приходят — Deposit),
-     * EXPENSE (уходят — Withdraw), TRANSFER (нейтрально для системы в целом).
-     */
-    public enum OpKind { INCOME, EXPENSE, TRANSFER }
+    public enum OpKind {INCOME, EXPENSE, TRANSFER}
 
-    /** ??? Верни OpKind по типу транзакции. Используй switch pattern matching. */
     public static OpKind opKind(Transaction t) {
-        return ???;
+        return switch (t) {
+            case Deposit d -> OpKind.INCOME;
+            case Withdraw w -> OpKind.EXPENSE;
+            case Transfer tx -> OpKind.TRANSFER;
+        };
     }
 
     /* ============================================================
-     * 4) Record + деструктуризация в switch (record patterns)
+     * 4) Запись всех транзакций банковской выписки в формате CSV
      * ============================================================ */
 
     /**
-     * Является ли транзакция "подозрительно большой" (> 100 000)?
-     * Используй record patterns — когда значение поля идёт прямо в when-условие.
-     *
-     * Пример record pattern в switch:
-     *   case Deposit(var u, var a) -> ...
-     *   case Transfer(_, _, var a) when a.compareTo(...) > 0 -> true
+     * Превращает список транзакций в CSV-строки (для дампа/теста).
      */
-    public static boolean isSuspicious(Transaction t) {
-        // ??? используй record patterns + when
-        // Подсказка: BigDecimal.compareTo(BigDecimal) — int
-        return ???;
-    }
-
-    /* ============================================================
-     * 5) Stream + sealed: фильтрация по типу через switch+record
-     * ============================================================ */
-
-    /**
-     * Подсчёт общего объёма "прихода" (Deposit) среди всех транзакций.
-     * Используй filter(... instanceof Deposit d) + map(Deposit::amount) + sum.
-     */
-    public static BigDecimal totalIncome(List<Transaction> txs) {
+    public static List<String> toCsv(List<Transaction> txs) {
         return txs.stream()
-                .filter(??? -> ??? instanceof Deposit d)
-                .map(??? -> ???)
-                .reduce(BigDecimal.ZERO, ???);
+                .map(t -> switch (t) {
+                    case Deposit d -> "DEPOSIT," + d.user() + "," + d.amount() + "," + d.date();
+                    case Withdraw w -> "WITHDRAW," + w.user() + "," + w.amount() + "," + w.date();
+                    case Transfer tx -> "TRANSFER," + tx.from() + "," + tx.to() + "," + tx.amount() + "," + tx.date();
+                })
+                .toList();
+    }
+
+    public static String summarize(Transaction t) {
+
+        BigDecimal THRESHOLD_BIG = new BigDecimal("100000");
+        BigDecimal THRESHOLD_MED = new BigDecimal("10000");
+
+        return switch (t) {
+            case Transfer(var from, var to, var amount, var date)
+                    when amount.compareTo(THRESHOLD_BIG) > 0 -> "LARGE TRANSFER from=" + from + " to=" + to;
+            case Deposit d when d.amount.compareTo(THRESHOLD_BIG) > 0 -> "BIG OP: Deposit user=" + d.user();
+            case Withdraw w when w.amount.compareTo(THRESHOLD_BIG) > 0 -> "BIG OP: Withdraw user=" + w.user();
+            case Deposit d when d.amount.compareTo(THRESHOLD_MED) > 0 -> "MODERATE Deposit user=" + d.user();
+            case Withdraw w when w.amount.compareTo(THRESHOLD_MED) > 0 -> "MODERATE Withdraw user=" + w.user();
+            case Transfer tx when tx.amount.compareTo(THRESHOLD_MED) > 0 -> "MODERATE TRANSFER user=" + tx.from();
+            case Deposit d -> "SMALL Deposit user=" + d.user();
+            case Withdraw w -> "SMALL Withdraw user=" + w.user();
+            case Transfer tx -> "SMALL TRANSFER user=" + tx.from();
+        };
     }
 
     /* ============================================================
-     * 6) Главный — группировка по пользователю с учётом sealed-иерархии
-     * ============================================================ */
-
-    /**
-     * Для каждого пользователя посчитай СУММУ его операций.
-     * — Deposit и Transfer.to — это "кому пришло" (INCOME).
-     * — Withdraw и Transfer.from — это "от кого ушло" (EXPENSE).
-     * — Баланс: SUM(income) - SUM(expense).
-     *
-     * Подсказка: тут удобно использовать switch по типу,
-     * но можно и через фильтр+мап для простоты.
-     */
-    public static Map<String, BigDecimal> balanceByUser(List<Transaction> txs) {
-        // ??? Map<String, BigDecimal> result = new HashMap<>();
-        // ??? для каждой транзакции добавь/вычти amount() в нужный ключ
-        return ???;
-    }
-
-    /* ============================================================
-     * main — проверим, что собирается/запускается
+     * main — проверим, что всё компилируется и работает
      * ============================================================ */
     public static void main(String[] args) {
         List<Transaction> txs = List.of(
-                new Deposit("alice", new BigDecimal("1500.00")),
-                new Withdraw("alice", new BigDecimal("400.50")),
-                new Transfer("alice", "bob", new BigDecimal("200.00")),
-                new Deposit("bob", new BigDecimal("9999.99")),
-                new Transfer("bob", "alice", new BigDecimal("50.00"))
+                new Deposit("alice", new BigDecimal("1500.00"), LocalDate.now()),
+                new Withdraw("alice", new BigDecimal("400.50"), LocalDate.now()),
+                new Transfer("alice", "bob", new BigDecimal("200.00"), LocalDate.now()),
+                new Deposit("bob", new BigDecimal("9999.99"), LocalDate.now()),
+                new Deposit("alice", new BigDecimal("1500.00"), LocalDate.now()),   // SMALL
+                new Deposit("alice", new BigDecimal("50000.00"), LocalDate.now()),   // MODERATE
+                new Deposit("alice", new BigDecimal("250000.00"), LocalDate.now()),   // BIG
+                new Transfer("alice", "bob", new BigDecimal("150000.00"), LocalDate.now()) // LARGE TRANSFER
         );
 
         System.out.println("=== describe ===");
         for (Transaction t : txs) {
-            System.out.println(describe(t));
+            System.out.println(describe(t) + " Большая сумма? " + t.isLarge());
         }
 
         System.out.println("\n=== opKind ===");
@@ -154,16 +135,13 @@ public class SealedTransaction {
             System.out.println(t.getClass().getSimpleName() + " → " + opKind(t));
         }
 
-        System.out.println("\n=== isSuspicious ===");
-        for (Transaction t : txs) {
-            System.out.println(describe(t) + " | suspicious=" + isSuspicious(t));
-        }
 
-        System.out.println("\n=== totalIncome ===");
-        System.out.println(totalIncome(txs));
+        System.out.println("\n=== CSV ===");
+        toCsv(txs).forEach(System.out::println);
 
-        System.out.println("\n=== balanceByUser ===");
-        Map<String, BigDecimal> balances = balanceByUser(txs);
-        balances.forEach((u, b) -> System.out.println(u + " → " + b));
+        System.out.println("\n=== summarize ===");
+        txs.stream().forEach(tx -> {
+            System.out.println(summarize(tx));
+        });
     }
 }

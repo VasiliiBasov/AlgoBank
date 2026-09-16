@@ -52,6 +52,8 @@
 | 15 | 16.09.2026 | Шаг 3D: Collectors (8 коллекторов: toList/toSet/toMap/groupingBy/partitioningBy/joining/counting/summingDouble) — 90/100 | 0.7 |
 | 16 | 16.09.2026 | Шаг 3E: TransactionAnalytics (countByUser, balanceByUser, top3Active, firstTransactionOfDay, suspiciousUsers) — 98/100 | 1.9 |
 | 17 | 16.09.2026 | Шаг 3 мини-экзамен (5 вопросов по теории) — 74/100 | 0.7 |
+| 18 | 16.09.2026 | Шаг 4A: Records + sealed interface (3 record'а + sealed permits + switch pattern matching + describe/opKind/toCsv) — компилируется, main отрабатывает | 0.3 |
+| 19 | 16.09.2026 | Шаг 4B: record patterns + when (summarize с THRESHOLD_BIG/MED, деструктуризация Transfer(var from, var to, var amount, var date)) — компилируется, есть баги `tx.to()` вместо `from` | 0.1 |
 
 **ИТОГО по всем сессиям:** **14.7 ч** за 6 дней (11.09 — 16.09.2026)
 
@@ -60,6 +62,7 @@
 - Шаг 1 (Collections, 5 микро-шагов + экзамен): 3.7 ч
 - Шаг 2 (Generics + Money + Account, 4 микро-шага + экзамен): 4.1 ч
 - Шаг 3 (Stream + Optional + Collectors + задача, 5 микро-шагов + экзамен): 6.5 ч
+- Шаг 4 (Records, sealed, pattern matching — in progress): 0.8 ч (4A: 0.6, 4B: 0.2)
 
 **Средний темп:** ~1.3 ч/день (но по факту неравномерно: 0.2-0.6 ч/сессия, несколько сессий в день)
 
