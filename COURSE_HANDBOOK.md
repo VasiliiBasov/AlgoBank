@@ -99,29 +99,29 @@
 ### 🏦 Блок 2: AlgoBank — Spring Boot (шаги 5-14)
 > Цель: построить полноценный backend банковского приложения, попутно разбирая теорию.
 
-5. **Шаг 5: Старт проекта + REST basics** — `@SpringBootApplication`, `@RestController`, `@GetMapping`, embedded Tomcat. Задачи: FizzBuzz, "Hello Bank" (2 easy).
-6. **Шаг 6: DTO + валидация** — `@Valid`, `@NotBlank`, `@RestControllerAdvice`, обработка ошибок. Задачи: палиндром IBAN, валидация номера карты (Luhn-алгоритм) (easy + medium).
+5. **Шаг 5: Старт проекта + REST basics** — `@SpringBootApplication`, `@RestController`, `@GetMapping`, embedded Tomcat. Задачи: FizzBuzz, "Hello Bank" (2 easy, каждая с JUnit-тестом). 🆕 Security-ловушка (первый 401 → permitAll до шага 9), README.md, GitHub Actions CI, ASCII-схема архитектуры.
+6. **Шаг 6: DTO + валидация** — `@Valid`, `@NotBlank`, `@RestControllerAdvice`, обработка ошибок. Задачи: палиндром IBAN, валидация номера карты (Luhn-алгоритм) (easy + medium). 🆕 Problem Details (RFC 9457, `ErrorResponse`), OpenAPI/springdoc.
 7. **Шаг 7: JPA entities + репозитории** — `@Entity`, `@Id`, `@OneToMany`/`@ManyToOne` (Account ↔ Transaction). Задачи: поиск дубликатов транзакций (HashSet), дедупликация по сумме+дате (medium).
-8. **Шаг 8: Транзакции (`@Transactional`)** — границы транзакций, propagation, rollback. Задачи: **обнаружение циклов в графе переводов** (DFS, medium) — реальная анти-фрод задача.
+8. **Шаг 8: Транзакции (`@Transactional`)** — границы транзакций, propagation, rollback. Задачи: **обнаружение циклов в графе переводов** (DFS, medium) — реальная анти-фрод задача. 🆕 **Идемпотентность переводов** (idempotency key — классика банковских собесов). 🎤 **Mock-checkpoint #1 после шага 8** (15 мин: Java Core + REST + JPA + транзакции).
 9. **Шаг 9: Spring Security basics** — `SecurityFilterChain`, BCrypt, in-memory users. Задачи: **проверка силы пароля** (жадный алгоритм, easy + medium).
 10. **Шаг 10: JWT + реальная аутентификация** — генерация токена, фильтр, защита endpoints. Задачи: **base64-кодирование** токена вручную (easy), парсинг JWT без библиотеки (medium).
-11. **Шаг 11: Spring Data queries** — JPQL, native, Specification, динамические фильтры для истории транзакций. Задачи: **Top-K самых крупных транзакций** (heap, medium), sliding window по датам (medium).
+11. **Шаг 11: Spring Data queries** — JPQL, native, Specification, динамические фильтры для истории транзакций. Задачи: **Top-K самых крупных транзакций** (heap, medium), sliding window по датам (medium). 🆕 **N+1 problem** (наглядно: сначала воспроизводим в логах, потом чиним через `EntityGraph`/`JOIN FETCH`), **keyset-пагинация** вместо offset.
 12. **Шаг 12: Кэширование** — `@Cacheable`, `@CacheEvict`, **написать свой LRU-кеш** (LinkedHashMap) и подключить как Spring Cache. Задача: **LRU Cache своими руками** (medium-hard) + классический LeetCode 146.
-13. **Шаг 13: Actuator + логирование** — `/actuator/health`, `/actuator/metrics`, SLF4J, MDC для трейсинга запросов. Задачи: **парсинг access-лога** (split + HashMap, easy), топ-10 эндпоинтов по ошибкам (heap, medium).
-14. **Шаг 14: Тестирование** — `@SpringBootTest`, `MockMvc`, Testcontainers (PostgreSQL), unit-тесты с JUnit 5. Задачи: **генератор тестовых транзакций** (random + Faker, easy), **параллельная генерация** (CompletableFuture, medium).
+13. **Шаг 13: Actuator + логирование** — `/actuator/health`, `/actuator/metrics`, SLF4J, MDC для трейсинга запросов. Задачи: **парсинг access-лога** (split + HashMap, easy), топ-10 эндпоинтов по ошибкам (heap, medium). 🆕 **Micrometer + формат Prometheus** (`/actuator/prometheus`) — observability-стандарт.
+14. **Шаг 14: Тестирование** — `@SpringBootTest`, `MockMvc`, Testcontainers (PostgreSQL), unit-тесты с JUnit 5. Задачи: **генератор тестовых транзакций** (random + Faker, easy), **параллельная генерация** (CompletableFuture, medium). 🆕 **AssertJ**, `@ParameterizedTest`, **ArchUnit** (архитектурные тесты: «контроллеры не ходят в репозитории напрямую»). 🎤 **Mock-checkpoint #2 после шага 14** (15 мин: весь Spring Boot блок).
 
 ### ⚡ Блок 3: Многопоточность + JVM (шаги 15-17)
 > Цель: понять, как Java работает под капотом — критично для Middle собеса.
 
 15. **Шаг 15: Thread basics** — Thread, Runnable, synchronized, volatile, happens-before. Задачи: **producer-consumer** с `BlockingQueue` (medium), **race condition** демо + фикс.
-16. **Шаг 16: Executor + Future + CompletableFuture** — thread pools, асинхронность, параллельные вызовы для агрегации данных из нескольких сервисов. Задачи: **merge-k-sorted-lists** через ExecutorService (medium-hard), параллельный расчёт балансов.
-17. **Шаг 17: JVM internals** — heap/stack, GC (G1, ZGC), classloading, JIT. Задачи: **анализ heap dump** (чтение стектрейса), **memory leak** демо (статическая коллекция, easy-medium).
+16. **Шаг 16: Executor + Future + CompletableFuture** — thread pools, асинхронность, параллельные вызовы для агрегации данных из нескольких сервисов. Задачи: **merge-k-sorted-lists** через ExecutorService (medium-hard), параллельный расчёт балансов. 🆕 **Virtual Threads (Java 21)** — `Thread.startVirtualThread`, `Executors.newVirtualThreadPerTaskExecutor()`, почему pool виртуальных потоков — антипаттерн; обзорно Scoped Values / Structured Concurrency (Java 25).
+17. **Шаг 17: JVM internals** — heap/stack, GC (G1, ZGC), classloading, JIT. Задачи: **анализ heap dump** (чтение стектрейса), **memory leak** демо (статическая коллекция, easy-medium). 🆕 Обзорно: **GraalVM Native Image / Spring AOT** (холодный старт, для чего); что нового в Java 22-25 поверх 21 LTS (unnamed patterns `_`, Stream Gatherers, compact source files) — классика вопроса «что нового в Java».
 
 ### 🗄 Блок 4: SQL для собеседования (шаги 18-19)
 > Цель: уверенный SQL — это 70% вакансий.
 
 18. **Шаг 18: Базовый SQL** — JOIN (INNER/LEFT/RIGHT/FULL), подзапросы, CTE, GROUP BY + HAVING. Задачи на реальных данных AlgoBank: "топ-клиенты по регионам", "счета без транзакций за 90 дней".
-19. **Шаг 19: Оконные функции + индексы + оптимизация** — `ROW_NUMBER/RANK/DENSE_RANK`, `LAG/LEAD`, индексы (B-tree, composite), EXPLAIN. Задачи: "выписка по счёту с нарастающим итогом", "предыдущая транзакция клиента".
+19. **Шаг 19: Оконные функции + индексы + оптимизация** — `ROW_NUMBER/RANK/DENSE_RANK`, `LAG/LEAD`, индексы (B-tree, composite), EXPLAIN. Задачи: "выписка по счёту с нарастающим итогом", "предыдущая транзакция клиента". 🎤 **Mock-checkpoint #3 после шага 19** (+SQL-блок).
 
 ### 🧮 Блок 5: Структуры данных (шаги 20-21)
 > Цель: фундамент для алгоритмов.
@@ -134,13 +134,15 @@
 
 22. **Шаг 22: Два указателя + скользящее окно** — классика LeetCode. Задачи: **Two Sum II** (easy), **Container With Most Water** (medium), **Longest Substring Without Repeating** (medium).
 23. **Шаг 23: Рекурсия + backtracking** — генерация комбинаций, откат. Задачи: **Generate Parentheses** (medium), **Permutations** (medium), **Subsets** (medium).
-24. **Шаг 24: Динамическое программирование + жадные алгоритмы** — основа для hard-задач. Задачи: **Climbing Stairs** (easy), **Coin Change** (medium), **Jump Game** (medium), **Activity Selection** (жадный, medium).
+24. **Шаг 24: Динамическое программирование + жадные алгоритмы** — основа для hard-задач. Задачи: **Climbing Stairs** (easy), **Coin Change** (medium), **Jump Game** (medium), **Activity Selection** (жадный, medium). 🎤 **Mock-checkpoint #4 после шага 24** (алгоритмическая секция под таймером).
 
 ### 🏆 Блок 7: Финал (шаги 25-26)
 > Цель: финальная подготовка, марафон, шпаргалка.
 
 25. **Шаг 25: LeetCode марафон** — 10-15 задач mixed difficulty (easy/medium) подряд за одну сессию с таймером, как на реальном собесе. Фокус на типовые паттерны.
 26. **Шаг 26: Финальная шпаргалка + mock-собеседование** — собираем все шпаргалки из `LEARNING_LOG.md` в один файл `INTERVIEW_CHEATSHEET.md`, прогоняем 10 вопросов в режиме "экзамен".
+
+- 🎁 **Бонус (опционально, вне счётчика 26): message broker** — Kafka или RabbitMQ: producer/consumer, топики/очереди, at-least-once, дедупликация по id. AlgoBank-фича: событие «транзакция завершена» → сервис уведомлений/антифрод. Многие Middle-вакансии это спрашивают.
 
 ---
 
@@ -247,7 +249,7 @@ git push
 
 | Команда | Что делать |
 |---|---|
-| **«начинаю обучение»** | Зафиксировать время старта (`Get-Date`), продолжить с текущего шага |
+| **«начинаю обучение»** | Зафиксировать время старта (`Get-Date`), провести разминку-квиз (3 вопроса из прошлых шагов, правило №11), продолжить с текущего шага |
 | **«пауза»** | Проверить время (`Get-Date`), **не коммитить**, просто ждать |
 | **«закончили на сегодня»** | Проверить время, обновить `STATS.md` и `HANDOFF.md`, **закоммитить и запушить** |
 | **«коммитим как есть»** | Дозаписать прогресс в `LEARNING_LOG.md`, синхронизировать дневники, коммит + пуш |

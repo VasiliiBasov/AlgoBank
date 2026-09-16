@@ -38,6 +38,8 @@
 ### Следующий шаг
 - **Шаг 5:** Старт проекта + REST basics — `@SpringBootApplication`, `@RestController`, `@GetMapping`, embedded Tomcat (задачи: FizzBuzz, «Hello Bank»)
 - ⚠️ Разминка перед стартом: ретест 3 вопросов по шагу 4 (exhaustiveness в switch, when-guards, record patterns)
+- 🆕 Новые практики с шага 5 (правила №11-16 в LEARNING_LOG): разминка-квиз на старте сессии, JUnit-тест к каждой задаче, README.md, GitHub Actions CI, ASCII-схема архитектуры, git-тег `step-05`
+- 🪤 Security-ловушка: первый запрос к контроллеру даст 401 (security-стартер в classpath) — учебный момент, заранее НЕ чинить
 
 ## 🧠 Что изучено
 
