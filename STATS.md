@@ -10,19 +10,19 @@
 
 ```
 Шаг:  0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26
-       ◉   ◉   ◉   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○
+       ◉   ◉   ◉   ◉   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○
        ◉ init/done  ○ ahead
 ```
 
 **Процент прохождения:**
 
 ```
-|████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░| 8% (2/26)
+|███████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░| 12% (3/26)
 ```
 
-**Текущий шаг:** 3 / 26 — Stream API + Optional + лямбды
+**Текущий шаг:** 4 / 26 — Records, sealed, pattern matching (Java 21)
 
-**Последнее обновление:** 14.09.2026 (шаг 2 завершён, 89.6/100)
+**Последнее обновление:** 16.09.2026 (шаг 3 завершён, 89.5/100)
 
 ---
 
@@ -46,6 +46,12 @@
 | 9 | 13.09.2026 | Шаг 2C: Account immutable + defensive copy (List.copyOf, final class) — 85/100 | 0.5 |
 | 10 | 13.09.2026 | Шаг 2D: Money extended (Comparable, add/subtract, factories, currency guard) — 95/100 | 0.4 |
 | 11 | 14.09.2026 | Шаг 2 мини-экзамен (HashSet/TreeSet + requireSameCurrency + ImmutablePoint код) — 93/100 | 0.3 |
+| 12 | 14.09.2026 | Шаг 3A: Лямбды + method references (Consumer, Supplier, Function, BiFunction, ::, ссылки на конструкторы) — 95/100 | 0.5 |
+| 13 | 15.09.2026 | Шаг 3B: Stream API (11 пунктов: filter/map/flatMap/reduce/findFirst/mapToInt/max/joining, lazy/peek) — 95/100 | 0.6 |
+| 14 | 15.09.2026 | Шаг 3C: Optional (цепочки map/filter, orElse vs orElseGet, ifPresent) — 85/100 | 0.6 |
+| 15 | 16.09.2026 | Шаг 3D: Collectors (8 коллекторов: toList/toSet/toMap/groupingBy/partitioningBy/joining/counting/summingDouble) — 90/100 | 0.4 |
+| 16 | 16.09.2026 | Шаг 3E: TransactionAnalytics (countByUser, balanceByUser, top3Active, firstTransactionOfDay, suspiciousUsers) — 98/100 | 1.0 |
+| 17 | 16.09.2026 | Шаг 3 мини-экзамен (5 вопросов по теории) — 74/100 | 0.4 |
 
 ---
 
@@ -56,6 +62,7 @@
 | 0 | Инициализация проекта | ✅ done | — | 11.09.2026 |
 | 1 | Collections framework | ✅ done | 85 | 12.09.2026 |
 | 2 | Generics, equals/hashCode, immutability | ✅ done | 89.6 | 12-14.09.2026 |
+| 3 | Stream API + Optional + лямбды + Collectors | ✅ done | 89.5 | 14-16.09.2026 |
 | ... | ... | ⏳ ahead | — | — |
 
 ---
@@ -68,6 +75,7 @@
 |---|-----|---------------------|------|------|
 | 1 | 1 | ArrayList vs LinkedList для Account.transactions (почему ArrayList) | 85 | 12.09.2026 |
 | 2 | 2 | HashSet vs TreeSet для Money + requireSameCurrency в compareTo + ImmutablePoint код | 93 | 14.09.2026 |
+| 3 | 3 | Stream API теория: базовые операции, Stream vs коллекция, lazy/peek, Optional цепочки, вложенные Collectors | 74 | 16.09.2026 |
 
 ---
 

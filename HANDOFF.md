@@ -26,15 +26,16 @@
 
 ## 📊 Текущий статус
 
-- **Шаг:** 3 / 26 (Stream API + Optional + лямбды — следующий)
+- **Шаг:** 4 / 26 (Records, sealed, pattern matching Java 21 — следующий)
 - **Дата старта:** 11.09.2026
-- **Завершённые шаги:** 0 ✅, 1 ✅ (Collections, 85/100), 2 ✅ (Generics + equals/hashCode/immutability, 89.6/100)
+- **Завершённые шаги:** 0 ✅, 1 ✅ (Collections, 85/100), 2 ✅ (Generics + equals/hashCode/immutability, 89.6/100), 3 ✅ (Stream API + Optional + лямбды + Collectors, 89.5/100)
 - **Средний балл за шаг 1:** 85/100
 - **Средний балл за шаг 2:** 89.6/100
-- **Всего потрачено:** ~2.7 ч (инициализация + шаг 1 + шаг 2)
+- **Средний балл за шаг 3:** 89.5/100
+- **Всего потрачено:** ~6 ч (инициализация + шаги 1, 2, 3)
 
 ### Следующий шаг
-- **Шаг 3:** Stream API + Optional + лямбды — уже немного использовали в шаге 1D (TransactionGrouping), сейчас углубимся
+- **Шаг 4:** Records, sealed, pattern matching (Java 21) — современный Java, убираем бойлерплейт в DTO
 
 ## 🧠 Что изучено
 
@@ -54,6 +55,20 @@
 - 2D Money extended: `implements Comparable<Money>`, `add/subtract/multiply`, фабрики `Money.of(...)`, защита от смешивания валют
 - String immutability: HashMap ключи + thread-safety + String Pool + security
 - **Главное:** `compareTo` должен быть согласован с `equals` (HashSet vs TreeSet дают одинаковый ответ только если согласованы)
+
+### Шаг 3 (Stream API + Optional + лямбды + Collectors, ✅ 14-16.09.2026, 89.5/100)
+- 3A Лямбды: функциональные интерфейсы (Consumer, Supplier, Function, BiFunction, Predicate), method references (`::` для статических, экземпляра, конструктора)
+- 3B Stream API: 11 операций — `filter`, `map`, `flatMap`, `reduce`, `findFirst`, `mapToInt`, `max`, `joining`. Stream ленивый — операции выполняются при `collect`/`forEach`
+- 3C Optional: замена null. `orElseGet(Supplier<T>)` ленивый, `orElse(T)` жадный. `flatMap` распаковывает `Optional<Optional<T>>`
+- 3D Collectors: `toList`, `toSet`, `toMap`, `groupingBy(c, downstream)`, `partitioningBy(p)`, `joining`, `counting`, `summingDouble`
+- 3E Задача TransactionAnalytics: 5 методов агрегации транзакций — groupingBy с downstream, top-K через sorted+limit, partitioningBy
+- **Главное:** Stream и коллекция дополняют друг друга — **Stream для декларативной обработки**, **коллекция для хранения данных**
+
+### Частые ошибки шага 3 (для запоминания)
+- `Collectors.toList(mapper)` — НЕТ такого! Только `.map(mapper).collect(Collectors.toList())`
+- `peek` логирует КАЖДЫЙ элемент по конвейеру, а не «все элементы одним куском» (lazy + промежуточная операция)
+- `!=` для строк → только `.equals()`. Защита от NPE: литерал слева `"WITHDRAW".equals(t.type())`
+- `groupingBy(classifier, downstream)` — двухуровневые группировки = один вызов с двумя аргументами, не два отдельных stream'а
 
 См. `LEARNING_LOG.md` — подробные разборы и шпаргалки.
 

@@ -234,3 +234,97 @@ Algoritm/
 ---
 
 *Обновлено 14.09.2026 после мини-экзамена шага 2.*
+## Шаг 3: Stream API + Optional + лямбды + Collectors (14-16.09.2026, 89.5/100)
+
+### Что прошли
+
+**3A — Лямбды и method references**
+- Функциональные интерфейсы: Consumer<T>, Supplier<T>, Function<T,R>, BiFunction<T,U,R>, Predicate<T>, BiPredicate<T,U>
+- Лямбды: (args) -> { body }, типы выводятся, return обязателен только в { } форме
+- Method references: :: для статических методов, методов экземпляра, конструкторов (ClassName::new)
+
+**3B — Stream API**
+- Создание: Collection.stream(), Stream.of(T...), Stream.builder(), IntStream.range()
+- Промежуточные (lazy): filter, map, flatMap, sorted, distinct, peek, limit, skip
+- Терминальные: collect, forEach, findFirst, count, min/max, reduce, anyMatch/allMatch/noneMatch
+- Специализированные: mapToInt/Long/Double + sum, average, max, min, summaryStatistics
+- Lazy: все операции выполняются только при терминальной. Каждый элемент проходит конвейер по одному.
+- Одноразовый: Stream нельзя переиспользовать после терминальной операции
+
+**3C — Optional**
+- Создание: Optional.of(T) (не null), Optional.ofNullable(T), Optional.empty()
+- Достать: get() (опасно), orElse(T) (жадно), orElseGet(Supplier<T>) (лениво), orElseThrow()
+- Преобразования: map, filter, flatMap (для Optional<Optional<T>>), ifPresent(Consumer)
+- Защита: "x".equals(maybeNull) — литерал слева, чтобы не получить NPE
+- Главная мысль: Optional — это контейнер «может быть пусто», а не замена null
+
+**3D — Collectors**
+- Коллекции: toList, toSet, toMap(keyMapper, valueMapper, mergeFunction)
+- Группировки: groupingBy(classifier), groupingBy(classifier, downstream) — двухуровневые
+- Разбиение: partitioningBy(predicate) — всегда 2 ключа (true/false)
+- Агрегация: counting, summingInt/Long/Double, averagingInt/Long/Double, summarizingInt/Long/Double
+- Составные: mapping(mapper, downstream) — mapper + downstream коллектор
+- Поиск: maxBy(comparator), minBy(comparator) → возвращают Optional<T>
+
+**3E — TransactionAnalytics (5 методов)**
+- countByUser: groupingBy(user, counting())
+- balanceByUser: два stream по DEPOSIT и WITHDRAW, потом Map.merge или for-цикл
+- top3Active: groupingBy(user, summingDouble) + entrySet().stream().sorted(comparingByValue().reversed()).limit(3)
+- firstTransactionOfDay: groupingBy(localDate, minBy(comparing(time)) + .mapValues(Optional::get) (Java 16+) или entrySet().stream().collect(toMap)
+- suspiciousUsers: max(time) → oneHourAgo → filter WITHDRAW && time>=oneHourAgo → counting → filter >3 → Set<String>
+
+### Шпаргалка: 8 самых важных коллекторов
+
+| Коллектор | Результат | Пример |
+|-----------|-----------|--------|
+| Collectors.toList() | List<T> | список строк |
+| Collectors.toSet() | Set<T> | уникальные id |
+| Collectors.toMap(k, v) | Map<K,V> | id→name |
+| Collectors.groupingBy(c) | Map<K, List<T>> | группировка |
+| Collectors.partitioningBy(p) | Map<Boolean, List<T>> | разделение да/нет |
+| Collectors.joining(s) | String | CSV |
+| Collectors.counting() | Long | счётчик |
+| Collectors.summingDouble(m) | Double | сумма |
+
+### Шпаргалка: Stream vs коллекция
+
+| | Коллекция | Stream |
+|---|---|---|
+| Цель | Хранение | Обработка |
+| Изменяемость | Да | Нет |
+| Итерация | Внешняя | Внутренняя |
+| Повторное использование | Сколько угодно | Один раз |
+| Lazy | Нет | Да |
+| Размер | Известен | Нет (или бесконечный) |
+| API | add, remove, get, size | filter, map, collect |
+
+### Мини-экзамен: 5 вопросов, 74/100
+
+| # | Тема | Оценка | Главная ошибка |
+|---|------|--------|----------------|
+| 1 | Stream базовые | 8/10 | Collectors.toList(mapper) — нет такого, нужен .map(mapper) |
+| 2 | Stream vs коллекция | 8/10 | не хватило lazy/eager упоминания |
+| 3 | Lazy / peek | 5/10 | peek1: abcd — должно быть каждый элемент 2 раза |
+| 4 | Optional | 10/10 | идеально |
+| 5 | Вложенные Collectors | 6/10 | синтаксис groupingBy с downstream не уверенно |
+
+### Копилка фактов для собеса
+
+- Stream не мутирует источник — все операции чистые функции
+- peek — для отладки, в продакшене используй forEach или map
+- findFirst() возвращает Optional<T> — даже если лист не пустой, поток может быть пустым
+- Collectors.toList() vs Stream.toList() (Java 16+) — последний immutable
+- Параллельный stream: .parallelStream() — НЕ всегда быстрее
+- flatMap — выравнивание вложенных структур (Stream<Stream<T>> → Stream<T>)
+- Optional не serializable (не передаётся через сеть)
+- Empty Optional не значит null — empty это «значение отсутствует», нормальный результат
+
+### Сделанные ошибки для запоминания
+
+1. != для строк в balanceByUser → поправил на .equals(). Привычка: литерал слева.
+2. Collectors.toList(String::toUpperCase) в мини-экзамене → перепутал где преобразование делается. Привычка: .map(...) всегда перед .collect(...).
+3. peek в мини-экзамене → peek не «раз логирует», а для каждого элемента в конвейере. Привычка: видишь два peek = два дебага в потоке.
+
+---
+
+*Обновлено 16.09.2026 после шага 3 + коммит 1654b34.*

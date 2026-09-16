@@ -12,8 +12,8 @@
 
 ## 📌 Где мы сейчас
 
-**Текущий шаг:** 3 / 26 (Stream API + Optional + лямбды)
-**Процент:** 8% (2/26)
+**Текущий шаг:** 4 / 26 (Records, sealed, pattern matching Java 21)
+**Процент:** 12% (3/26)
 
 **Что сделано в шаге 0 (служебный, инициализация, 11.09.2026):**
 - ✅ Почищен Maven Archetype-артефакт (был `archetype-resources/`, `META-INF/maven/`)
@@ -100,7 +100,60 @@
 - String immutability: String Pool + HashMap + thread-safety + security
 - Defensive copy на входе и выходе из геттера — единственный способ сделать Account реально immutable
 
-**Следующий шаг:** шаг 3 — Stream API + Optional + лямбды
+**Следующий шаг:** шаг 4 — Records, sealed, pattern matching (Java 21)
+
+---
+
+## 🎉 Шаг 3 полностью завершён
+
+**Когда:** 16.09.2026
+**Прогресс:** 5 микро-шагов + мини-экзамен
+**Оценка:** 89.5/100 (средний по 6 пунктам: 3A=95, 3B=95, 3C=85, 3D=90, 3E=98, 3Экзамен=74)
+
+**Что сделано в шаге 3 (Stream API + Optional + лямбды + Collectors):**
+- ✅ **A** — Лямбды + method references (завершён 14.09.2026)
+  - Функциональные интерфейсы, ссылки на методы (статические, экземпляра, конструкторы)
+  - Файл `src/main/java/ru/algobank/algo/step03/LambdaPlayground.java`
+- ✅ **B** — Stream API (завершён 15.09.2026)
+  - 11 базовых операций: filter, map, flatMap, reduce, findFirst, mapToInt, max, joining
+  - Интересный факт: обнаружил «нашёл длину самого длинного слова» — 8 (Function и Optional)
+  - Файл `src/main/java/ru/algobank/algo/step03/StreamBasics.java`
+- ✅ **C** — Optional (завершён 15.09.2026)
+  - Цепочки: of, ofNullable, map, filter, orElse, orElseGet, ifPresent
+  - Честный момент: ответ про orElse vs orElseGet был частично неточным (singleton — деталь JVM, не контракт)
+  - Файл `src/main/java/ru/algobank/algo/step03/OptionalPlayground.java`
+- ✅ **D** — Collectors (завершён 16.09.2026)
+  - 8 коллекторов: toList, toSet, toMap, groupingBy, partitioningBy, joining, counting, summingDouble
+  - 2G некоторые коллекторы (mapping, maxBy, summarizingDouble) дал сам в подсказках
+  - Файл `src/main/java/ru/algobank/algo/step03/CollectorsPlayground.java`
+- ✅ **E** — Задача TransactionAnalytics (завершён 16.09.2026)
+  - 5 методов: countByUser, balanceByUser, top3Active, firstTransactionOfDay, suspiciousUsers
+  - Использованы все основные коллекторы на реальной задаче
+  - Мини-промахи: `!=` для строк → показал, исправил на `.equals()`; в методе `top3Active` біл синтаксический промах
+  - Файл `src/main/java/ru/algobank/algo/step03/TransactionAnalytics.java`
+- ✅ **Мини-экзамен** (74/100):
+  - 1 (Stream базовые операции): 8/10 — `Collectors.toList(String::toUpperCase)` без `.map()`
+  - 2 (Stream vs коллекция): 8/10 — верные 3 отличия, чуть не хватило lazy/eager
+  - 3 (Lazy / peek): 5/10 — главная ошибка: `peek1: abcd` вместо каждого элемента по 2 раза
+  - 4 (Optional): 10/10 — идеально
+  - 5 (Вложенные Collectors): 6/10 — промах в синтаксисе, идея была верная
+- ✅ **Коммит шага 3:** `1654b34` — step 3 complete
+
+### Усвоено на шаге 3
+- Stream — ленивый, одноразовый, не хранит данные
+- Lazy: операции выполнения начинаются только при `collect`/`forEach`
+- `peek` — промежуточная операция для логирования, вызывается для каждого элемента при проходе конвейера
+- Optional — про замену null, `orElseGet` ленивый, `flatMap` для распаковки `Optional<Optional<T>>`
+- Collectors: для агрегации; `groupingBy` с downstream коллектором позволяет делать двухуровневые группировки
+- Вложенные коллекторы — реальный подход к аналитике транзакций
+
+### Сделанные ошибки для запоминания
+1. `!=` для строк → контракт на `equals()`. Хорошо ловит NPE-защиту через литерал слева.
+2. `Collectors.toList(String::toUpperCase)` — `toList()` без аргументов, `.map()` для преобразования
+3. `peek` логирует каждый элемент по 2 раза в моей задаче — lazy + промежуточная операция = для каждого элемента вся цепочка
+
+### Что можно улучшить
+- В методе `4` `firstTransactionOfDay` текущий подход использует `.entrySet().stream().collect(toMap)` — работает, но можно проще через `Optional.map(t -> t).get()` — в Java 16+ можно избежать переделки через `Collectors.toMap(minBy(...))`. Это версия 21 без чумы.
 
 ---
 
