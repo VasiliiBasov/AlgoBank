@@ -12,8 +12,9 @@
 
 ## 📌 Где мы сейчас
 
-**Текущий шаг:** 4 / 26 (Records, sealed, pattern matching Java 21)
-**Процент:** 12% (3/26)
+**Текущий шаг:** 5 / 26 (Spring Boot REST basics)
+**Процент:** 15% (4/26)
+**Шаг 4:** ✅ завершён 17.09.2026 (4A=100, 4B=100, 4C=100, экзамен=56/100 → среднее 89.0/100) — детали ниже
 
 **Что сделано в шаге 0 (служебный, инициализация, 11.09.2026):**
 - ✅ Почищен Maven Archetype-артефакт (был `archetype-resources/`, `META-INF/maven/`)
@@ -100,7 +101,7 @@
 - String immutability: String Pool + HashMap + thread-safety + security
 - Defensive copy на входе и выходе из геттера — единственный способ сделать Account реально immutable
 
-**Следующий шаг:** шаг 4 — Records, sealed, pattern matching (Java 21)
+**Следующий шаг:** шаг 3 — Stream API + Optional + лямбды + Collectors
 
 ---
 
@@ -154,6 +155,22 @@
 
 ### Что можно улучшить
 - В методе `4` `firstTransactionOfDay` текущий подход использует `.entrySet().stream().collect(toMap)` — работает, но можно проще через `Optional.map(t -> t).get()` — в Java 16+ можно избежать переделки через `Collectors.toMap(minBy(...))`. Это версия 21 без чумы.
+
+---
+
+## 🟢 Шаг 4 полностью завершён — Records, sealed, pattern matching (Java 21)
+
+**Когда:** 17.09.2026 (1.4 ч по факту, правило №9 — без коэффициентов)
+**Оценка:** 4A=100, 4B=100, 4C=100, экзамен=56 → **среднее 89.0/100**
+**Файл:** `src/main/java/ru/algobank/algo/step04/SealedTransaction.java`
+**Коммиты:** `e70fc72` → `5edb075` → `ea40155` → `bddf1de` (+ push)
+
+- ✅ **4A** — records + sealed: `record Deposit/Withdraw/Transfer(...) implements Transaction`, `sealed interface Transaction permits ...`, default-метод `isLarge()` с порогом 100000
+- ✅ **4B** — switch pattern matching без `default`: `describe()`, `opKind()`, `toCsv()`; record patterns + when-guards в `summarize()`; баг `tx.to()` → `tx.from()` пойман и исправлен
+- ✅ **4C** — Stream + `groupingBy(SealedTransaction::summarize, Collectors.counting())` + method reference
+- ⛔ **Мини-экзамен 56/100:** пробелы — exhaustiveness в switch (думал, компилируется без `default` при неполных ветках), when-guards vs `if` в теле case
+
+**Ретест (запланирован на старт шага 5):** 3 вопроса-разминки — exhaustiveness, when vs if, record pattern.
 
 ---
 

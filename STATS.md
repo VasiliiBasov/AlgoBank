@@ -10,19 +10,19 @@
 
 ```
 Шаг:  0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26
-       ◉   ◉   ◉   ◉   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○
+       ◉   ◉   ◉   ◉   ◉   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○   ○
        ◉ init/done  ○ ahead
 ```
 
 **Процент прохождения:**
 
 ```
-|███████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░| 12% (3/26)
+|█████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░| 15% (4/26)
 ```
 
-**Текущий шаг:** 4 / 26 — Records, sealed, pattern matching (Java 21)
+**Текущий шаг:** 5 / 26 — Spring Boot REST basics (@SpringBootApplication, @RestController, application.yml)
 
-**Последнее обновление:** 16.09.2026 (шаг 3 завершён, 89.5/100)
+**Последнее обновление:** 17.09.2026 (шаг 4 завершён: 4A=100, 4B=100, 4C=100, экзамен 56/100 → среднее 89.0/100)
 
 ---
 
@@ -52,12 +52,12 @@
 | 15 | 16.09.2026 | Шаг 3D: Collectors (8 коллекторов: toList/toSet/toMap/groupingBy/partitioningBy/joining/counting/summingDouble) — 90/100 | 0.7 |
 | 16 | 16.09.2026 | Шаг 3E: TransactionAnalytics (countByUser, balanceByUser, top3Active, firstTransactionOfDay, suspiciousUsers) — 98/100 | 1.9 |
 | 17 | 16.09.2026 | Шаг 3 мини-экзамен (5 вопросов по теории) — 74/100 | 0.7 |
-| 18 | 16.09.2026 | Шаг 4A: Records + sealed interface (3 record'а + sealed permits + switch pattern matching + describe/opKind/toCsv) — компилируется, main отрабатывает | 0.6 |
-| 19 | 16.09.2026 | Шаг 4B: record patterns + when (summarize с THRESHOLD_BIG/MED, деструктуризация Transfer(var from, var to, var amount, var date)) — компилируется, есть баги `tx.to()` вместо `from` | 0.3 |
-| 20 | 16.09.2026 | Шаг 4C: Stream + Collectors.groupingBy(summarize, counting) + method reference + баг-фикс tx.to()→tx.from() — компилируется, вывод 7 категорий | 0.3 |
-| 21 | 16.09.2026 | Шаг 4 мини-экзамен (5 вопросов: record, sealed, exhaustiveness, record pattern, when vs if) — 14/25 (56%) | 0.2 |
+| 18 | 16-17.09.2026 | Шаг 4A: Records + sealed interface (3 record'а + sealed permits + switch pattern matching + describe/opKind/toCsv) — компилируется, main отрабатывает | 0.6 |
+| 19 | 16-17.09.2026 | Шаг 4B: record patterns + when (summarize с THRESHOLD_BIG/MED, деструктуризация Transfer(var from, var to, var amount, var date)) — компилируется, есть баги `tx.to()` вместо `from` | 0.3 |
+| 20 | 16-17.09.2026 | Шаг 4C: Stream + Collectors.groupingBy(summarize, counting) + method reference + баг-фикс tx.to()→tx.from() — компилируется, вывод 7 категорий | 0.3 |
+| 21 | 16-17.09.2026 | Шаг 4 мини-экзамен (5 вопросов: record, sealed, exhaustiveness, record pattern, when vs if) — 14/25 (56%) | 0.2 |
 
-**ИТОГО по всем сессиям:** **15.9 ч** за 6 дней (11.09 — 16.09.2026)
+**ИТОГО по всем сессиям:** **15.9 ч** за 7 дней (11.09 — 17.09.2026)
 
 **Распределение по шагам:**
 - Шаг 0 (инициализация): 0.4 ч
@@ -86,7 +86,7 @@
 | 1 | Collections framework | ✅ done | 85 | 12.09.2026 |
 | 2 | Generics, equals/hashCode, immutability | ✅ done | 89.6 | 12-14.09.2026 |
 | 3 | Stream API + Optional + лямбды + Collectors | ✅ done | 89.5 | 14-16.09.2026 |
-| 4 | Records, sealed, pattern matching (Java 21) | ✅ done | 56 (4Экз) | 16.09.2026 |
+| 4 | Records, sealed, pattern matching (Java 21) | ✅ done | 89.0 (экзамен 56) | 16-17.09.2026 |
 | ... | ... | ⏳ ahead | — | — |
 
 ---
@@ -100,6 +100,7 @@
 | 1 | 1 | ArrayList vs LinkedList для Account.transactions (почему ArrayList) | 85 | 12.09.2026 |
 | 2 | 2 | HashSet vs TreeSet для Money + requireSameCurrency в compareTo + ImmutablePoint код | 93 | 14.09.2026 |
 | 3 | 3 | Stream API теория: базовые операции, Stream vs коллекция, lazy/peek, Optional цепочки, вложенные Collectors | 74 | 16.09.2026 |
+| 4 | 4 | Records, sealed, exhaustiveness в switch, record pattern, when vs if (5 вопросов) | 56 | 17.09.2026 |
 
 ---
 
@@ -107,10 +108,12 @@
 
 | Категория | План | Решено |
 |-----------|------|--------|
-| **Easy** | ~30 | 1 |
-| **Medium** | ~40 | 1 |
+| **Easy** | ~30 | 2 |
+| **Medium** | ~40 | 2 |
 | **Hard** | ~10 | 0 |
-| **Итого** | **~80** | **2** |
+| **Итого** | **~80** | **4** |
+
+> Пересчёт 17.09.2026: считаем все содержательные задачи курса (Two Sum — 1C, TransactionGrouping — 1D, TransactionAnalytics — 3E, SealedTransaction — 4A-C), а не только LeetCode-классику.
 
 ---
 
@@ -118,7 +121,7 @@
 
 | Тема | Уровень | Комментарий |
 |------|---------|-------------|
-| Java Core | 🔴 слабо | JavaRush 4 года назад, нужен экспресс (шаги 1-4) |
+| Java Core | 🟡 средне | Шаги 1-4 ✅ (85 / 89.6 / 89.5 / 89.0); экзамен шага 4 — 56/100 → ретест на старте шага 5 |
 | Spring Boot | 🟢 средне | Уже идёт в SpringBootProject (9/15, 82%) |
 | Алгоритмы | 🔴 слабо | Начинаем с шага 1 |
 | SQL | 🟡 средне | Базовые JOIN знаю, оконки надо подтянуть |

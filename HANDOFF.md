@@ -26,9 +26,9 @@
 
 ## 📊 Текущий статус
 
-- **Шаг:** 4 / 26 (Records, sealed, pattern matching Java 21 — следующий)
+- **Шаг:** 5 / 26 (Spring Boot REST basics — следующий; шаг 4 ✅ 17.09.2026)
 - **Дата старта:** 11.09.2026
-- **Завершённые шаги:** 0 ✅, 1 ✅ (Collections, 85/100), 2 ✅ (Generics + equals/hashCode/immutability, 89.6/100), 3 ✅ (Stream API + Optional + лямбды + Collectors, 89.5/100)
+- **Завершённые шаги:** 0 ✅, 1 ✅ (Collections, 85/100), 2 ✅ (Generics + equals/hashCode/immutability, 89.6/100), 3 ✅ (Stream API + Optional + лямбды + Collectors, 89.5/100), 4 ✅ (Records + sealed + pattern matching, 89.0/100, экзамен 56/100)
 - **Средний балл за шаг 1:** 85/100
 - **Средний балл за шаг 2:** 89.6/100
 - **Средний балл за шаг 3:** 89.5/100
@@ -36,7 +36,8 @@
 - **Средний балл за шаг 4 (экзамен):** 56/100 (пробелы: exhaustiveness в switch, when-guards)
 
 ### Следующий шаг
-- **Шаг 4:** Records, sealed, pattern matching (Java 21) — современный Java, убираем бойлерплейт в DTO
+- **Шаг 5:** Старт проекта + REST basics — `@SpringBootApplication`, `@RestController`, `@GetMapping`, embedded Tomcat (задачи: FizzBuzz, «Hello Bank»)
+- ⚠️ Разминка перед стартом: ретест 3 вопросов по шагу 4 (exhaustiveness в switch, when-guards, record patterns)
 
 ## 🧠 Что изучено
 
@@ -65,11 +66,22 @@
 - 3E Задача TransactionAnalytics: 5 методов агрегации транзакций — groupingBy с downstream, top-K через sorted+limit, partitioningBy
 - **Главное:** Stream и коллекция дополняют друг друга — **Stream для декларативной обработки**, **коллекция для хранения данных**
 
+### Шаг 4 (Records, sealed, pattern matching, ✅ 17.09.2026, средний 89.0/100)
+- 4A: `record Deposit(String user, BigDecimal amount, LocalDate date)` + `sealed interface Transaction permits Deposit, Withdraw, Transfer` + default-метод `isLarge()`
+- 4B: switch pattern matching БЕЗ `default` (`describe`, `opKind`, `toCsv`) — компилятор сам проверяет exhaustiveness по sealed-иерархии
+- 4C: record patterns + `when`-guards в `summarize()` + `Collectors.groupingBy(SealedTransaction::summarize, counting())`
+- Экзамен **56/100** — пробелы: exhaustiveness (неполные ветки без `default` НЕ компилируются), `when`-guards vs `if` в теле case
+
 ### Частые ошибки шага 3 (для запоминания)
 - `Collectors.toList(mapper)` — НЕТ такого! Только `.map(mapper).collect(Collectors.toList())`
 - `peek` логирует КАЖДЫЙ элемент по конвейеру, а не «все элементы одним куском» (lazy + промежуточная операция)
 - `!=` для строк → только `.equals()`. Защита от NPE: литерал слева `"WITHDRAW".equals(t.type())`
 - `groupingBy(classifier, downstream)` — двухуровневые группировки = один вызов с двумя аргументами, не два отдельных stream'а
+
+### Частые ошибки шага 4 (для запоминания)
+- switch по sealed-типу НЕ скомпилируется с неполным набором ветвей — нужны все permitted-типы или `default`
+- `when` — часть case-паттерна: провал гарда → идём в следующий case; `if` в теле — уже после выбора ветки
+- record pattern `case Transfer(var from, var to, ...)` безопаснее `case Transfer tx` — порядок компонентов фиксирован компилятором, опечатки вида `tx.to()` вместо `tx.from()` исключены
 
 См. `LEARNING_LOG.md` — подробные разборы и шпаргалки.
 

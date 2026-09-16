@@ -90,7 +90,7 @@
 - Для шага 4 и далее — **только фактическое время по `Get-Date`**, без повышающих коэффициентов.
 - Если забыл зафиксировать время — пиши «оценочно», не умножай.
 
-### 8. Профиль ученика
+### 10. Профиль ученика
 - ✅ Заходят: длинные разборы с аналогиями, ASCII-схемы, проекты-обёртки, много задач
 - ❌ Не заходят: готовый код классов целиком, варианты A/B/C/D, мало задач
 - ⚠️ Слабые места: путает похожие концепции, доверяет недавней памяти, ошибки в формулировках закрепляются → давать сравнительные вопросы и требовать явные таблицы отличий
@@ -100,7 +100,7 @@
 ## 📋 Структура папок проекта (план)
 
 ```
-Algoritm/
+AlgoBank/
 ├── pom.xml
 ├── README.md
 ├── .gitignore
@@ -339,4 +339,55 @@ Algoritm/
 
 ---
 
-*Обновлено 16.09.2026 после шага 3 + коммит 1654b34.*
+## Шаг 4: Records, sealed, pattern matching (Java 21) (✅ 17.09.2026 — микро-шаги 100/100/100, экзамен 56/100)
+
+> Записано пост-фактум по коду и коммитам (`e70fc72` → `5edb075` → `ea40155` → `bddf1de`): сессия была ускоренной (весь шаг за ~1.4 ч), разбор короче обычного.
+
+### 4A: Records + sealed (17.09.2026)
+- `record Deposit(String user, BigDecimal amount, LocalDate date)` — компоненты неявно `private final`; accessors `user()`/`amount()` (БЕЗ `get`-префикса)
+- `sealed interface Transaction permits Deposit, Withdraw, Transfer` — закрытая иерархия; наследник обязан быть `final` / `sealed` / `non-sealed` (record — всегда final)
+- В sealed-интерфейсе можно держать default-методы: `default boolean isLarge()` с порогом 100000
+- Автогенерация: канонический конструктор, `equals`/`hashCode`/`toString` — котелок бойлерплейта исчезает
+
+### 4B: Record patterns + when-guards (17.09.2026)
+- Распаковка прямо в case: `case Transfer(var from, var to, var amount, var date) when amount.compareTo(BIG) > 0 -> ...`
+- **`when` — часть паттерна:** гард не прошёл → проверяется СЛЕДУЮЩИЙ case. `if` в теле — проверка уже ПОСЛЕ выбора ветки (провал = выход из switch)
+- switch по sealed-типу без `default`: компилятор знает иерархию и требует ПОЛНОЕ покрытие (exhaustiveness)
+
+### 4C: Stream + groupingBy + method reference (17.09.2026)
+- `txs.stream().collect(Collectors.groupingBy(SealedTransaction::summarize, Collectors.counting()))`
+- Классификатор `::summarize` внутри себя использует switch с record patterns — современный стек Java 21 одной связкой
+- Файл: `src/main/java/ru/algobank/algo/step04/SealedTransaction.java`
+
+### Шпаргалка: records / sealed / switch pattern matching
+
+| Фича | Синтаксис | Подводный камень |
+|---|---|---|
+| record | `record Deposit(String user, BigDecimal amount, LocalDate date) {}` | accessor `user()`, не `getUser()`; компоненты `private final` |
+| компактный конструктор | `public Deposit { Objects.requireNonNull(user); }` | присваивание полям делает компилятор; руками `this.user = ...` НЕ пишем |
+| sealed | `sealed interface Transaction permits Deposit, Withdraw, Transfer {}` | наследник обязан быть `final` / `sealed` / `non-sealed`; permits — только прямые наследники |
+| switch PM (тип) | `case Deposit d -> ...` | exhaustiveness: для sealed — все ветви ИЛИ `default`; без этого НЕ компилируется |
+| record pattern | `case Transfer(var f, var t, var a, var d) -> ...` | порядок `var` = порядку компонентов record |
+| when-guard | `case Deposit d when d.amount().compareTo(X) > 0 -> ...` | гард внутри паттерна: провал → следующий case; `if` в теле — уже после выбора |
+| `case null` | `case null -> ...` | без него `switch(null)` падает с NPE |
+
+### Мини-экзамен: 5 вопросов, 14/25 = 56/100
+
+| # | Тема | Оценка | Главная ошибка |
+|---|------|--------|----------------|
+| 1 | record (синтаксис) | 4/5 | мелочь в формулировке |
+| 2-5 | sealed, exhaustiveness, record pattern, when vs if | 10/20 суммарно | exhaustiveness: думал, что скомпилируется без `default` при неполных ветках; when-guards vs `if` внутри case — путаница в моменте проверки |
+
+(По-вопросный разбор 2-5 утерян вместе с контекстом сессии; зафиксированы итог и пробелы — этого достаточно для ретеста.)
+
+### Решение по итогам экзамена
+- **Ретест на старте шага 5 (разминка, 3 вопроса):** exhaustiveness в switch, when vs if, порядок компонентов в record pattern
+- Правило курса усвоено заново: ошибка → письменный правильный ответ → ретест
+
+### Сделанные ошибки для запоминания
+1. Баг `tx.to()` → `tx.from()` в `summarize()` — при `case Transfer tx` опечатка ловится только глазами; при record pattern `case Transfer(var from, var to, ...)` её просто негде сделать
+2. «Switch скомпилируется и без полного покрытия» — НЕТ: для sealed-типа компилятор требует все ветви или `default`
+
+---
+
+*Обновлено 17.09.2026 после шага 4 + коммит bddf1de (+ housekeeping-синк дневников).*

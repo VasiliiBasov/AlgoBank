@@ -128,4 +128,5 @@ public class TransactionAnalytics {
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toSet());
     }
+
 }
