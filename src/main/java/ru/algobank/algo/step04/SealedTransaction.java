@@ -149,15 +149,18 @@ public class SealedTransaction {
         stats.forEach((k, v) -> System.out.println(k + ": " + v));
 
 
-
-        txs.stream().forEach(t -> {
-        switch(t) {
-            case Transfer(String from, String to, BigDecimal amount, LocalDate date)
-                when Objects.equals(from, "alice") && (amount.compareTo(THRESHOLD_THOUSAND) > 0) -> System.out.println("Перевод от: " + from + " на сумму: " + amount);
-            case Deposit d -> {}
-            case Withdraw w -> {}
-            case Transfer transfer -> {}
-        }
+        txs.forEach(t -> {
+            switch (t) {
+                case Transfer(String from, String to, BigDecimal amount, LocalDate date)
+                        when Objects.equals(from, "alice") && (amount.compareTo(THRESHOLD_THOUSAND) > 0) ->
+                        System.out.println("Перевод от: " + from + " на сумму: " + amount);
+                case Deposit d -> {
+                }
+                case Withdraw w -> {
+                }
+                case Transfer transfer -> {
+                }
+            }
         });
     }
 }

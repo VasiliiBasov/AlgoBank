@@ -101,8 +101,8 @@
 
 5. **Шаг 5: Старт проекта + REST basics** — `@SpringBootApplication`, `@RestController`, `@GetMapping`, embedded Tomcat. Задачи: FizzBuzz, "Hello Bank" (2 easy, каждая с JUnit-тестом). 🆕 Security-ловушка (первый 401 → permitAll до шага 9), README.md, GitHub Actions CI, ASCII-схема архитектуры.
 6. **Шаг 6: DTO + валидация** — `@Valid`, `@NotBlank`, `@RestControllerAdvice`, обработка ошибок. Задачи: палиндром IBAN, валидация номера карты (Luhn-алгоритм) (easy + medium). 🆕 Problem Details (RFC 9457, `ErrorResponse`), OpenAPI/springdoc.
-7. **Шаг 7: JPA entities + репозитории** — `@Entity`, `@Id`, `@OneToMany`/`@ManyToOne` (Account ↔ Transaction). Задачи: поиск дубликатов транзакций (HashSet), дедупликация по сумме+дате (medium).
-8. **Шаг 8: Транзакции (`@Transactional`)** — границы транзакций, propagation, rollback. Задачи: **обнаружение циклов в графе переводов** (DFS, medium) — реальная анти-фрод задача. 🆕 **Идемпотентность переводов** (idempotency key — классика банковских собесов). 🎤 **Mock-checkpoint #1 после шага 8** (15 мин: Java Core + REST + JPA + транзакции).
+7. **Шаг 7: JPA entities + репозитории** — `@Entity`, `@Id`, `@OneToMany`/`@ManyToOne` (Account ↔ Transaction). Задачи: поиск дубликатов транзакций (HashSet), дедупликация по сумме+дате (medium). 🆕 **Docker basics #1 (основы):** проверка установки Docker Desktop, образ vs контейнер, `docker run hello-world`, базовые команды (`run / ps / stop / rm / logs / exec`), проброс портов `-p`. Готовим почву для контейнерной PostgreSQL на шаге 8.
+8. **Шаг 8: Транзакции (`@Transactional`)** — границы транзакций, propagation, rollback. Задачи: **обнаружение циклов в графе переводов** (DFS, medium) — реальная анти-фрод задача. 🆕 **Идемпотентность переводов** (idempotency key — классика банковских собесов). 🆕 **Docker basics #2 (практика):** поднять PostgreSQL 16 в контейнере (`docker run -d postgres:16`, env-переменные, `-p 5432:5432`), подключить AlgoBank через новый профиль `docker` в `application.yml` (закрепление профилей шага 5B), `docker exec` → psql внутри контейнера, обзорно volumes (данные переживают рестарт контейнера). 🎤 **Mock-checkpoint #1 после шага 8** (15 мин: Java Core + REST + JPA + транзакции).
 9. **Шаг 9: Spring Security basics** — `SecurityFilterChain`, BCrypt, in-memory users. Задачи: **проверка силы пароля** (жадный алгоритм, easy + medium).
 10. **Шаг 10: JWT + реальная аутентификация** — генерация токена, фильтр, защита endpoints. Задачи: **base64-кодирование** токена вручную (easy), парсинг JWT без библиотеки (medium).
 11. **Шаг 11: Spring Data queries** — JPQL, native, Specification, динамические фильтры для истории транзакций. Задачи: **Top-K самых крупных транзакций** (heap, medium), sliding window по датам (medium). 🆕 **N+1 problem** (наглядно: сначала воспроизводим в логах, потом чиним через `EntityGraph`/`JOIN FETCH`), **keyset-пагинация** вместо offset.
@@ -237,6 +237,7 @@ git push
 - [ ] Спроектировать JPA-модель (счёт ↔ транзакции), написать `@Transactional` сервис
 - [ ] Защитить endpoints через Spring Security + JWT, применить `@PreAuthorize`
 - [ ] Написать интеграционный тест с `@SpringBootTest` + Testcontainers
+- [ ] **Docker basics** — поднять PostgreSQL в контейнере и подключить приложение через профиль (Docker basics, шаги 7-8 🆕)
 - [ ] Решить 60+ алгоритмических задач (easy/medium) и объяснить подход
 - [ ] Написать SQL-запросы с JOIN, CTE, оконными функциями, объяснить план через EXPLAIN
 - [ ] Объяснить многопоточность (synchronized, volatile, ExecutorService, CompletableFuture)
@@ -291,5 +292,5 @@ git push
 
 **Удачи в AlgoBank! 🚀**
 
-*Файл создан 11.09.2026 при старте AlgoBank. Последнее обновление: 17.09.2026 (блок 1 Java Core завершён — шаги 1-4 ✅, средний по шагам 88.3; экзамен шага 4 — 56/100, ретест на старте шага 5).*
+*Файл создан 11.09.2026 при старте AlgoBank. Последнее обновление: 17.09.2026 (блок 1 Java Core завершён — шаги 1-4 ✅, средний по шагам 88.3; экзамен шага 4 — 56/100, ретест на старте шага 5). 18.09.2026 — Docker basics добавлены в план: шаги 7-8 + контрольные точки.*
 

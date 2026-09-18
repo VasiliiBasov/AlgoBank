@@ -432,12 +432,24 @@ AlgoBank/
 - **Баг №2 (Boot 4 модульность):** H2-консоль вынесена из spring-boot-autoconfigure в отдельный артефакт `org.springframework.boot:spring-boot-h2console` — без него `spring.h2.console.enabled=true` игнорируется. Добавлена в pom.xml (без версии, управляет BOM). Проверка: «Test successful» (`jdbc:h2:mem:algobank`, user `sa`, пустой пароль)
 - Рефрейминг: `permitAll` — отладочный приём: убрал security-ширму → обнажился истинный 404 (сервлета консоли в classpath просто не было)
 
-### 5C: application.yml вглубь (теория роздана, ждём ответов ученика)
+### 5C: application.yml вглубь (✅ закрыт 18-19.09.2026)
 - **Пирамида приоритетов:** CLI `--key=val` > JVM `-Dkey=val` > OS env (`SERVER_PORT`) > `application-dev.yml` (профильный) > `application.yml` (общий) > дефолты автоконфигурации. Мнемоника: «чем ближе к запуску — тем сильнее»
 - **Relaxed binding:** `server.port` ⇄ `SERVER_PORT` (env: точки → `_`, kebab-case убирается, верхний регистр)
 - **@ConfigurationProperties:** ключи `server.*` биндятся в POJO `ServerProperties` (Boot 4: пакет `org.springframework.boot.web.server.autoconfigure`, модуль `spring-boot-web-server`). На шаге 6 — свои props-классы; собес-вопрос: `@Value` vs `@ConfigurationProperties` (группировка, валидация, IDE-автодополнение)
 - Профили ученик уже знает (SpringBootProject, шаг 2) — не разжёвывать
 - Задание 5Cα «война портов»: запуск на 9099 через `--server.port=9099` + 2 экзамен-вопроса (кто победит из трёх источников; что будет без `spring.profiles.active: dev`)
+
+**Итоги 5C (сессия 18-19.09):**
+- Разминка №3 (модульность Boot 4): **75/100** — «тонкая настройка, платим явным подключением дефолтов». Добавлено в разборе: главный мотив — худой classpath (меньше автоконфигураций под сканирование: память/старт/security-аудит); вторая цена — молчаливый игнор (настройка есть, модуля нет, ошибки нет — см. H2-консоль). Аналогия: Boot 3 = шведский стол, Boot 4 = меню, забыл отметить блюдо — официант молчит
+- Экзамен В2 (пирамида, 3 источника): **70/100** — «запустится из аргумента» ✅, но пирамида: env ↔ `-D` перепутаны местами, забыт уровень «дефолты кода» (ServerProperties: 8080). На собесе называть число-ответ явно
+- Экзамен В3 (без `spring.profiles.active: dev`): **60/100** — «включится default» ✅ (fallback!), но упущено главное: application-dev.yml перестаёт читаться + `@Profile("dev")`-бины не создаются. Маркеры логов: `The following 1 profile is active: "dev"` vs `No active profile set, falling back to 1 default profile: "default"` (без слова active!)
+- **Находка:** `application-dev.yml` в проекте вообще не существует — профиль dev активен, но пуст
+- Практика «война портов» ✅: логи `Tomcat started on port 9099` (CLI) и `8082` (обычный) — пирамида подтверждена вживую, Run Configuration очищен
+
+### Задачи шага 5 (✅ 19.09.2026)
+- **FizzBuzz** (`convert(int)`): 90/100. Порядок проверок 15 → 5 → 3 верный. Ловушка ученика: `Objects.requireNonNull(n)` на примитиве — мёртвый код (int не бывает null; лишний boxing в Integer ради невозможной проверки) — удалена после разбора. Правило: защитные null-проверки — только для ссылочных типов
+- **BankGreeter** (`greet(String)`): 95/100. `name == null || name.isBlank()` — null-check ЛЕВЕЕ (ленивый `||`: short-circuit спасает от NPE). Бонус-вопрос верно: `isBlank()` (Java 11) = пустая или только whitespace; `isEmpty()` = только length==0
+- **Первые JUnit 5 тесты ученика:** FizzBuzzTest 4/4 ✅, BankGreeterTest 4/4 ✅. Мелкий todo: имена в BankGreeterTest (`testName` → поведенческие `namedClient_greetsByName`)
 
 ### Копилка фактов шага 5 (для собеса)
 
@@ -446,8 +458,12 @@ AlgoBank/
 | Boot 4 модулен | H2-консоль — отдельный артефакт `spring-boot-h2console`; web-сервер — `spring-boot-web-server` |
 | Лямбда-пустышка | `x -> someFactory()` компилируется под void-ФИ, результат выбрасывается — «тихий» баг |
 | frameOptions | H2-консоль = `<frameset>` → `sameOrigin()`, иначе браузер режет (DENY от Spring Security) |
-| Пирамида конфигов | CLI > -D > env > профильный yml > общий yml > дефолты автоконфигурации |
+| Пирамида конфигов | CLI > -D > env > профильный yml > общий yml > дефолты кода (`ServerProperties`) |
+| Логи профилей | `...1 profile is active: "dev"` vs `No active profile set, falling back to 1 default profile: "default"` |
+| Ленивый `\|\|` | null-check всегда левее: `name == null \|\| name.isBlank()` — иначе NPE |
+| isBlank vs isEmpty | `isBlank()` (Java 11): пустая или только пробелы; `isEmpty()`: length==0 |
+| requireNonNull | Только для ссылочных типов; на примитиве — мёртвый код + boxing |
 
 ---
 
-*Обновлено 17.09.2026 (ночь): шаг 4 закрыт + ретест 38/60; шаг 5 — 5A/5B ✅, далее 5C и задачи.*
+*Обновлено 19.09.2026 (ночь): шаг 5 — 5A/5B/5C ✅ + задачи FizzBuzz/BankGreeter с первыми JUnit 5 тестами ✅ (90/95). Остались артефакты: README, GitHub Actions CI, ASCII-схема, тег step-05.*
