@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -126,6 +127,8 @@ public class SealedTransaction {
                 new Transfer("alice", "bob", new BigDecimal("150000.00"), LocalDate.now()) // LARGE TRANSFER
         );
 
+        BigDecimal THRESHOLD_THOUSAND = new BigDecimal("1000");
+
         System.out.println("=== describe ===");
         for (Transaction t : txs) {
             System.out.println(describe(t) + " Большая сумма? " + t.isLarge());
@@ -144,5 +147,17 @@ public class SealedTransaction {
         Map<String, Long> stats = txs.stream()
                 .collect(Collectors.groupingBy(SealedTransaction::summarize, Collectors.counting()));
         stats.forEach((k, v) -> System.out.println(k + ": " + v));
+
+
+
+        txs.stream().forEach(t -> {
+        switch(t) {
+            case Transfer(String from, String to, BigDecimal amount, LocalDate date)
+                when Objects.equals(from, "alice") && (amount.compareTo(THRESHOLD_THOUSAND) > 0) -> System.out.println("Перевод от: " + from + " на сумму: " + amount);
+            case Deposit d -> {}
+            case Withdraw w -> {}
+            case Transfer transfer -> {}
+        }
+        });
     }
 }
