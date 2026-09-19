@@ -1,0 +1,23 @@
+### GET /api/hello — привет от банка (шаг 5B)
+GET http://localhost:8082/api/hello
+
+### POST /api/greet — валидное имя → ждём 200 + JSON с приветствием
+POST http://localhost:8082/api/greet
+Content-Type: application/json
+
+{
+  "name": "Vasilii"
+}
+
+### POST /api/greet — имя из пробелов → ждём 400 (сработала валидация @NotBlank)
+POST http://localhost:8082/api/greet
+Content-Type: application/json
+
+{
+  "name": "   "
+}
+
+### POST без заголовка Content-Type → ждём 415 (Spring не знает, чем парсить тело)
+POST http://localhost:8082/api/greet
+
+{"name": "Vasilii"}

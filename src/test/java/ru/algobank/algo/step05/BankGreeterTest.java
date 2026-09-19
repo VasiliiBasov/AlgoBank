@@ -6,20 +6,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BankGreeterTest {
 
+
+    BankGreeter bankGreeter = new BankGreeter();
+
     @Test
-    void testName() {
-        assertEquals("Здравствуйте, Иван!", BankGreeter.greet("Иван"));
+    void namedClient_greetsByName() {
+        assertEquals("Здравствуйте, Иван!", bankGreeter.greet("Иван"));
     }
     @Test
-    void testNameNull() {
-        assertEquals("Здравствуйте, гость!", BankGreeter.greet(null));
+    void namedClient_greetsByNull() {
+        assertEquals("Здравствуйте, гость!", bankGreeter.greet(null));
     }
     @Test
-    void testNameEmpty() {
-        assertEquals("Здравствуйте, гость!", BankGreeter.greet(""));
+    void namedClient_greetsByEmpty() {
+        assertEquals("Здравствуйте, гость!", bankGreeter.greet(""));
     }
     @Test
-    void testNameSpace() {
-        assertEquals("Здравствуйте, гость!", BankGreeter.greet(" "));
+    void namedClient_greetsBySpace() {
+        assertEquals("Здравствуйте, гость!", bankGreeter.greet(" "));
     }
 }
