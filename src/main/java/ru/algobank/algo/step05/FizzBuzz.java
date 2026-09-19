@@ -1,6 +1,9 @@
 package ru.algobank.algo.step05;
 
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 public class FizzBuzz {
 
     public static String convert(int n) {

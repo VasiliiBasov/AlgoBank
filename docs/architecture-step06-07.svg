@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1180" viewBox="0 0 1000 1180" font-family="'Segoe UI', Arial, sans-serif">
+  <rect x="0" y="0" width="1000" height="1180" fill="#ffffff"/>
+
+  <text x="500" y="36" text-anchor="middle" font-size="26" font-weight="700" fill="#1f2937">AlgoBank — целевая архитектура (шаги 6–7)</text>
+
+  <!-- Клиент (вне JVM) -->
+  <rect x="230" y="56" width="380" height="64" rx="8" fill="#f3f4f6" stroke="#6b7280" stroke-width="2" stroke-dasharray="7 5"/>
+  <text x="420" y="84" text-anchor="middle" font-size="18" font-weight="600" fill="#374151">Клиент — curl / браузер</text>
+  <text x="420" y="104" text-anchor="middle" font-size="14" fill="#6b7280">вне JVM (пунктир)</text>
+  <text x="650" y="82" font-size="15" fill="#374151">HTTP-запрос: GET /api/accounts</text>
+  <text x="650" y="104" font-size="15" fill="#6b7280">CRUD-операции над счетами — шаг 6</text>
+
+  <path d="M408,120 L432,120 L432,168 L444,168 L420,186 L396,168 L408,168 Z" fill="#374151"/>
+
+  <!-- Spring-контекст -->
+  <rect x="50" y="150" width="900" height="830" rx="12" fill="#fafafa" stroke="#9ca3af" stroke-width="2"/>
+  <text x="70" y="176" font-size="16" font-weight="700" fill="#4b5563">Spring-контекст (IoC-контейнер)</text>
+
+  <!-- embedded Tomcat [Spring] -->
+  <rect x="230" y="186" width="380" height="64" rx="8" fill="#e8f0fe" stroke="#1a73e8" stroke-width="2"/>
+  <text x="420" y="214" text-anchor="middle" font-size="18" font-weight="600" fill="#1f2937">embedded Tomcat [Spring]</text>
+  <text x="420" y="234" text-anchor="middle" font-size="14" fill="#6b7280">HTTP-сервер внутри JVM</text>
+  <text x="650" y="212" font-size="15" fill="#374151">автоконфигурация Boot</text>
+  <text x="650" y="234" font-size="15" fill="#6b7280">порт 8082 ← yml: server.port</text>
+
+  <path d="M408,250 L432,250 L432,284 L444,284 L420,302 L396,284 L408,284 Z" fill="#374151"/>
+
+  <!-- SecurityConfig -->
+  <rect x="230" y="302" width="380" height="64" rx="8" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+  <text x="420" y="330" text-anchor="middle" font-size="18" font-weight="600" fill="#1f2937">SecurityConfig</text>
+  <text x="420" y="350" text-anchor="middle" font-size="14" fill="#6b7280">anyRequest().permitAll()</text>
+  <text x="650" y="328" font-size="15" fill="#374151">наш @Configuration-бин</text>
+  <text x="650" y="350" font-size="15" fill="#6b7280">временно доступ всем (позже — JWT)</text>
+
+  <path d="M408,366 L432,366 L432,400 L444,400 L420,418 L396,400 L408,400 Z" fill="#374151"/>
+
+  <!-- AccountController -->
+  <rect x="230" y="418" width="380" height="64" rx="8" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+  <text x="420" y="446" text-anchor="middle" font-size="18" font-weight="600" fill="#1f2937">AccountController</text>
+  <text x="420" y="466" text-anchor="middle" font-size="14" fill="#6b7280">@RestController · DTO = record ↔ JSON</text>
+  <text x="650" y="444" font-size="15" fill="#374151">наш код — как HelloBankController</text>
+  <text x="650" y="466" font-size="15" fill="#6b7280">шаг 6: +@Valid, ProblemDetails</text>
+
+  <path d="M408,482 L432,482 L432,516 L444,516 L420,534 L396,516 L408,516 Z" fill="#374151"/>
+
+  <!-- AccountService (НОВОЕ, шаг 6) -->
+  <rect x="60" y="553" width="122" height="26" rx="13" fill="#e6f4ea" stroke="#34a853" stroke-width="1.6"/>
+  <text x="121" y="570" text-anchor="middle" font-size="13" font-weight="700" fill="#1e7e34">НОВОЕ · шаг 6</text>
+  <rect x="230" y="534" width="380" height="64" rx="8" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+  <text x="420" y="562" text-anchor="middle" font-size="18" font-weight="600" fill="#1f2937">AccountService</text>
+  <text x="420" y="582" text-anchor="middle" font-size="14" fill="#6b7280">@Service · бизнес-логика · @Transactional</text>
+  <text x="650" y="560" font-size="15" fill="#374151">наш код — НОВЫЙ СЛОЙ шага 6</text>
+  <text x="650" y="582" font-size="15" fill="#6b7280">переводы, лимиты, комиссии</text>
+
+  <path d="M408,598 L432,598 L432,632 L444,632 L420,650 L396,632 L408,632 Z" fill="#374151"/>
+
+  <!-- AccountRepository (НОВОЕ, шаг 7) -->
+  <rect x="60" y="669" width="122" height="26" rx="13" fill="#e6f4ea" stroke="#34a853" stroke-width="1.6"/>
+  <text x="121" y="686" text-anchor="middle" font-size="13" font-weight="700" fill="#1e7e34">НОВОЕ · шаг 7</text>
+  <rect x="230" y="650" width="380" height="64" rx="8" fill="#e8f0fe" stroke="#1a73e8" stroke-width="2"/>
+  <text x="420" y="678" text-anchor="middle" font-size="18" font-weight="600" fill="#1f2937">AccountRepository</text>
+  <text x="420" y="698" text-anchor="middle" font-size="14" fill="#6b7280">interface extends JpaRepository</text>
+  <text x="650" y="676" font-size="15" fill="#374151">наш интерфейс — шаг 7</text>
+  <text x="650" y="698" font-size="15" fill="#6b7280">реализация — Spring Data [Spring]</text>
+
+  <path d="M408,714 L432,714 L432,748 L444,748 L420,766 L396,748 L408,748 Z" fill="#374151"/>
+
+  <!-- Account Entity (НОВОЕ, шаг 7) -->
+  <rect x="60" y="785" width="122" height="26" rx="13" fill="#e6f4ea" stroke="#34a853" stroke-width="1.6"/>
+  <text x="121" y="802" text-anchor="middle" font-size="13" font-weight="700" fill="#1e7e34">НОВОЕ · шаг 7</text>
+  <rect x="230" y="766" width="380" height="64" rx="8" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+  <text x="420" y="794" text-anchor="middle" font-size="18" font-weight="600" fill="#1f2937">Account — @Entity</text>
+  <text x="420" y="814" text-anchor="middle" font-size="14" fill="#6b7280">маппинг класса на таблицу (JPA)</text>
+  <text x="650" y="792" font-size="15" fill="#374151">наш класс — шаг 7</text>
+  <text x="650" y="814" font-size="15" fill="#6b7280">поля ↔ колонки (@Id, @Column…)</text>
+
+  <path d="M408,830 L432,830 L432,864 L444,864 L420,882 L396,864 L408,864 Z" fill="#374151"/>
+
+  <!-- H2 [Spring] -->
+  <rect x="230" y="882" width="380" height="64" rx="8" fill="#e8f0fe" stroke="#1a73e8" stroke-width="2"/>
+  <text x="420" y="910" text-anchor="middle" font-size="18" font-weight="600" fill="#1f2937">H2 in-memory БД [Spring]</text>
+  <text x="420" y="930" text-anchor="middle" font-size="14" fill="#6b7280">jdbc:h2:mem:algobank</text>
+  <text x="650" y="908" font-size="15" fill="#374151">включается в application.yml</text>
+  <text x="650" y="930" font-size="15" fill="#6b7280">шаги 7–8: PostgreSQL в Docker</text>
+
+  <!-- Легенда -->
+  <rect x="50" y="1000" width="900" height="140" rx="8" fill="#ffffff" stroke="#d1d5db" stroke-width="1.6"/>
+  <text x="70" y="1028" font-size="16" font-weight="700" fill="#374151">Легенда</text>
+
+  <rect x="70" y="1044" width="20" height="14" rx="3" fill="#e8f0fe" stroke="#1a73e8" stroke-width="1.6"/>
+  <text x="100" y="1056" font-size="14" fill="#374151">[Spring] = компонент контейнера: создаётся автоконфигурацией или реализация генерируется фреймворком</text>
+
+  <rect x="70" y="1070" width="20" height="14" rx="3" fill="#ffffff" stroke="#1f2937" stroke-width="1.6"/>
+  <text x="100" y="1082" font-size="14" fill="#374151">без пометки = наш код (классы, конфигурация, интерфейсы)</text>
+
+  <rect x="70" y="1096" width="26" height="16" rx="8" fill="#e6f4ea" stroke="#34a853" stroke-width="1.4"/>
+  <text x="104" y="1108" font-size="14" fill="#374151">зелёный чип = слой появится на указанном шаге</text>
+
+  <text x="70" y="1130" font-size="14" fill="#6b7280">Имена Account* условные: Controller + Service — шаг 6 (CRUD, @Valid, ProblemDetails); Repository + Entity — шаг 7 (Spring Data JPA).</text>
+</svg>
+
+
