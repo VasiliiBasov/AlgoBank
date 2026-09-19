@@ -477,6 +477,7 @@ AlgoBank/
 | Failure vs Error | Failure — assert не сошёлся; Error — исключение из тела теста (NPE) |
 | curl на Windows | `curl.exe` (alias `curl` = Invoke-WebRequest!), JSON в одинарных кавычках, `-i` = статус ответа |
 | Входящий/исходящий DTO | Вход (CreateXRequest) валидируем; выход валиден по построению — аннотации там мертвы |
+| `message` в теле ошибок | Скрыт с Boot 2.3: `server.error.include-message=never` по умолчанию (sec: утечка внутренностей). Дефолт-тело = timestamp/status/error/path |
 
 ---
 
@@ -500,5 +501,6 @@ AlgoBank/
 - **HTTP-запросы (теория для п.4):** стартовая строка (метод + путь + версия) → заголовки → пустая строка → тело; `Content-Type: application/json` — без него **415**; Windows: `curl.exe` (НЕ alias `curl` = Invoke-WebRequest), JSON в одинарных кавычках, `-i` = статус+заголовки ответа, `-v` = весь обмен. Создан `http/greet.http` (IDEA HTTP Client, 4 запроса: GET-регрессия / 200 / 400 / 415)
 - **Хвосты ученику:** мёртвые импорты (Greeting ×3, контроллер ×1) — вычищать `Ctrl+Alt+O`; пробел `@PostMapping (` — `Ctrl+Alt+L`
 - **Вопрос-крючок к 6B:** какие поля у дефолтного тела 400 от Spring?
+- **Факт из прогона ученика:** реальное тело 400 = `{timestamp, status, error, path}` — БЕЗ `message` (Boot ≥2.3, см. копилку). Дефолт не сообщает даже ЧТО не так → мотивация 6B только усилилась
 
-*Обновлено 20.09.2026 (ночь): шаг 6 стартован — 6A ✅ 92/100 (DTO + @Valid + BankGreeter-бин + первый POST). В ротации разминок пусто. ⏳ Тег `step-05` + итог времени 19.09 в STATS — при закрытии дня.*
+*День 19→20.09 закрыт 20.09 02:13:51 (`Get-Date`): нетто 5.0 ч (гросс 15 ч 48 мин − паузы 10 ч 47 мин). Шаг 5 ЗАКРЫТ — тег `step-05` ✅ + итог в STATS ✅. Шаг 6: 6A ✅ 92/100; заготовка `exception/GlobalExceptionHandler` (пустой `@RestControllerAdvice`) закоммичена; 6B следующий. Хвост: мёртвый import NotBlank в контроллере.*

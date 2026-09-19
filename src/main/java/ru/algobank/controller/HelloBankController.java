@@ -21,13 +21,13 @@ public class HelloBankController {
     }
 
     @GetMapping("/api/hello")
-    public Greeting greeting(){
+    public Greeting greeting() {
         return new Greeting("AlgoBank",
                 "Добро пожаловать в AlgoBank API", Instant.now());
     }
 
-    @PostMapping ("/api/greet")
-    public Greeting greeting(@Valid @RequestBody CreateGreetingRequest req){
+    @PostMapping("/api/greet")
+    public Greeting greeting(@Valid @RequestBody CreateGreetingRequest req) {
         return new Greeting("AlgoBank", greeter.greet(req.name()), Instant.now());
     }
 

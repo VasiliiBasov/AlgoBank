@@ -12,8 +12,8 @@
 
 ## 📌 Где мы сейчас
 
-**Текущий шаг:** 5 / 26 (Spring Boot REST basics — **в работе**: 5A/5B/5C ✅, задачи ✅, остались артефакты: README, CI, ASCII-схема, тег step-05)
-**Процент:** 15% (4/26), шаг 5 почти закрыт
+**Текущий шаг:** 6 / 26 (DTO + валидация — **в работе**: 6A ✅ 92/100, далее 6B — `@RestControllerAdvice` + ProblemDetail)
+**Процент:** 19% (5/26), шаг 5 **✅ закрыт** 20.09.2026 ночью (артефакты `1b67465` + тег `step-05`)
 **Шаг 4:** ✅ завершён 17.09.2026 (4A=100, 4B=100, 4C=100, экзамен=56/100 → среднее 89.0/100) — детали ниже
 **Шаг 4, ретест-разминка:** ✅ проведена 17.09.2026 на старте шага 5 — **38/60**; `record pattern` оставлен в ротации повторения
 
@@ -188,6 +188,25 @@
 **Задачи:** FizzBuzz (easy) + «Hello Bank» (easy) — каждая с JUnit-тестом (правило №13, `src/test/java/ru/algobank/...`)
 
 **Артефакты шага:** `README.md` (пишет ученик по шаблону ассистента), GitHub Actions CI (build + test), ASCII-схема архитектуры (правило №14), git-тег `step-05`
+
+---
+
+## 🎉 Шаг 5 полностью завершён — Spring Boot REST basics
+
+**Когда:** 20.09.2026 (ночь, тег `step-05`)
+**Оценки:** 5C-экзамены 70/60; задачи FizzBuzz 90 / BankGreeter 95 (первые JUnit 5: 4/4 + 4/4)
+**Коммиты:** `1b67465` (артефакты: README + PNG/SVG-схемы + CI GitHub Actions)
+- ✅ 5A — автоконфигурация + 401-ловушка → `SecurityConfig.permitAll()` (поняли почему 401: Security starter в classpath)
+- ✅ 5B — GET `/api/hello` JSON + H2-консоль (двойной баг: лямбда-пустышка `PathRequest.toH2Console()` + Boot 4 модуль `spring-boot-h2console`)
+- ✅ 5C — пирамида конфигов (CLI > -D > env > профильный yml > yml > дефолты), relaxed binding; «война портов» (CLI 9099 победил 8082)
+- ✅ Задачи + первые JUnit 5 тесты
+- ✅ Артефакты + git-тег `step-05` (20.09 ночью)
+
+## 🔄 Шаг 6 — DTO + валидация (в работе)
+
+**Старт:** 19→20.09 ночь. **6A ✅ 92/100** (коммит `7221dc0`): record `CreateGreetingRequest(@NotBlank String name)`, `@Valid @RequestBody` на параметре, POST `/api/greet` → `new Greeting(..., greeter.greet(req.name()), ...)`; BankGreeter стал настоящим бином (static убран — разбор оксюморона «бин + static»); BankGreeterTest зелёный с `new` + поведенческие имена. Разобранные ошибки: `@Component` на record роняет старт; вызов-без-результата (эхо клиенту); NPE в тесте (в JUnit нет Spring-контекста). Создан `http/greet.http` (IDEA HTTP Client): 200 / 400 / 415 / GET-регрессия. Факт: дефолтное тело 400 = `{timestamp, status, error, path}` — `message` скрыт с Boot 2.3 → мотивация 6B.
+**Далее 6B:** `@RestControllerAdvice` + `ProblemDetail` (RFC 9457, Spring 6 `ErrorResponse`) — заготовка `exception/GlobalExceptionHandler.java` уже в репо; зачётный вопрос: 2-3 преимущества ProblemDetail над дефолтом. Затем 6C (springdoc OpenAPI) и задачи шага: палиндром IBAN (easy), Luhn (medium).
+**Хвосты к 6A:** мёртвый `import ...NotBlank` в `HelloBankController` (Greeting ✅ и пробел `@PostMapping` ✅ ученик вычистил сам при чек-ауте дня).
 
 ---
 
