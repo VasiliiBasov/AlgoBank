@@ -69,6 +69,7 @@
 - **Запрошена и выдана теория «как пишутся хэндлеры»:** DispatcherServlet ловит проброс → best-match `@ExceptionHandler` (локальный в контроллере > глобальные advice по `@Order`); `@RestControllerAdvice` = advice + `@ResponseBody`; скелет с построчным разбором; аналогия «операционист/диспетчер/справочник регламентов»; грабли (фильтры мимо advice; `HttpMessageNotReadableException` ловится)
 - **Хэндлер 6B написан учеником + ревью:** `onValidationError(MethodArgumentNotValidException)` → ProblemDetail (400, title, detail из FieldError-стримом с `getField()+": "+getDefaultMessage()`). Регрессия `mvn test` зелёная 8/8 (surefire 22:24). Косметика по ТЗ: `joining(", ")` → `"; "`, title sentence case. Свидетельство самостоятельности: отступления от скелета (набран руками ✅)
 - **⏸→▶ Пауза №2: 22:27:11 → ~23:45** (возврат из Date-заголовка ответа: `20:45:38 GMT` = 23:45:38 MSK). **6B ЗАКРЫТ: реализация 90/100, зачёт 70/100** — правки внесены (`"; "`, title), прогон greet.http: `application/problem+json` + `instance`, `type` about:blank не сериализуется (Boot 4). Зачёт: информативность ✅ + instance ✅ (сказал «instant»), не назвал стандарт-контракт RFC 9457 и расширяемость — разобрано в ответе. Далее: задачи палиндром IBAN (easy) + Luhn (medium), затем 6C
+- **🔄 Ротация разминок на 21.09:** «преимущества ProblemDetail / RFC 9457 над дефолтным телом» (зачёт 70 < 80 → ретест; вспомнить разбор: контракт-стандарт, `application/problem+json`, `type`→документация, `setProperty`)
 
 ## 🧠 Что изучено
 
