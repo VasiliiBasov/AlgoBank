@@ -60,6 +60,16 @@
 - **Следующая сессия (20.09):** шаг 6 — **6B**: `@RestControllerAdvice` + ProblemDetail (RFC 9457). Заготовка ученика уже в репо: `exception/GlobalExceptionHandler.java` (пустой `@RestControllerAdvice`). План: хэндлер на `MethodArgumentNotValidException` → `ProblemDetail` (400, title «Validation failed», detail из `BindingResult.getFieldErrors()` через stream + joining) → прогон `greet.http` → зачётный вопрос: 2-3 преимущества ProblemDetail над дефолтом. Затем 6C (springdoc) + задачи: палиндром IBAN (easy) + Luhn (medium). Хвосты: мёртвый `import jakarta.validation.constraints.NotBlank` в `HelloBankController` (ученик при чек-ауте дня вычистил Greeting-импорты ✅ и пробел `@PostMapping` ✅). Ротация разминок пуста — наполнить темами 6B/6C
 - ⚠️ **Docker не установлен** — шаг 7 начнётся с установки Docker Desktop (WSL2)
 
+### Сессия 20.09 (вечер)
+
+- **Старт:** 20:06:27 (`Get-Date`); план: разминка (включатель `@Valid`) → 6B ProblemDetail → задачи палиндром IBAN / Luhn
+- **Разминка №4 «сломанный включатель»:** забытый `@Valid` + `{"name":"   "}` → ответ ученика «200 + «Здравствуйте, гость!» — валидатор не сработал, сервис сам обработал» = **90/100**, снято с ротации. Уточнение: движок валидации на classpath ЕСТЬ — `@Valid` это триггер вызова, а «валидатора нет» грубовато. Красивый вывод ученика: defense in depth — фасад (валидация) и домен (BankGreeter.isBlank) защищают независимо
+- **ТЗ 6B выдано** (метод на `MethodArgumentNotValidException` → ProblemDetail 400 «Validation failed» + detail из FieldErrors через joining("; "); регрессия `mvn test`; прогон greet.http = тело до/после + `Content-Type: application/problem+json`; зачётный вопрос — 2-3 преимущества ProblemDetail; бонус: какое поле заменило `path`) + хвост: Ctrl+Alt+O в контроллере
+- **⏸→▶ Пауза 20:18:59 → 22:05:53 (1 ч 46 мин 54 с)**. Хвост из 6A снят: `import ...NotBlank` в контроллере снесён ✅ (проверено чтением файла — импорты чистые). Ждём реализацию хэндлера 6B
+- **Запрошена и выдана теория «как пишутся хэндлеры»:** DispatcherServlet ловит проброс → best-match `@ExceptionHandler` (локальный в контроллере > глобальные advice по `@Order`); `@RestControllerAdvice` = advice + `@ResponseBody`; скелет с построчным разбором; аналогия «операционист/диспетчер/справочник регламентов»; грабли (фильтры мимо advice; `HttpMessageNotReadableException` ловится)
+- **Хэндлер 6B написан учеником + ревью:** `onValidationError(MethodArgumentNotValidException)` → ProblemDetail (400, title, detail из FieldError-стримом с `getField()+": "+getDefaultMessage()`). Регрессия `mvn test` зелёная 8/8 (surefire 22:24). Косметика по ТЗ: `joining(", ")` → `"; "`, title sentence case. Свидетельство самостоятельности: отступления от скелета (набран руками ✅)
+- **⏸→▶ Пауза №2: 22:27:11 → ~23:45** (возврат из Date-заголовка ответа: `20:45:38 GMT` = 23:45:38 MSK). **6B ЗАКРЫТ: реализация 90/100, зачёт 70/100** — правки внесены (`"; "`, title), прогон greet.http: `application/problem+json` + `instance`, `type` about:blank не сериализуется (Boot 4). Зачёт: информативность ✅ + instance ✅ (сказал «instant»), не назвал стандарт-контракт RFC 9457 и расширяемость — разобрано в ответе. Далее: задачи палиндром IBAN (easy) + Luhn (medium), затем 6C
+
 ## 🧠 Что изучено
 
 ### Шаг 1 (Collections framework, ✅ 11-12.09.2026)

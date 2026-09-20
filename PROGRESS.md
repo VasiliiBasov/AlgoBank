@@ -12,7 +12,7 @@
 
 ## 📌 Где мы сейчас
 
-**Текущий шаг:** 6 / 26 (DTO + валидация — **в работе**: 6A ✅ 92/100, далее 6B — `@RestControllerAdvice` + ProblemDetail)
+**Текущий шаг:** 6 / 26 (DTO + валидация — **в работе**: 6A ✅ 92/100, 6B ✅ 90/100 (зачёт 70/100), далее задачи: палиндром IBAN + Luhn → 6C springdoc)
 **Процент:** 19% (5/26), шаг 5 **✅ закрыт** 20.09.2026 ночью (артефакты `1b67465` + тег `step-05`)
 **Шаг 4:** ✅ завершён 17.09.2026 (4A=100, 4B=100, 4C=100, экзамен=56/100 → среднее 89.0/100) — детали ниже
 **Шаг 4, ретест-разминка:** ✅ проведена 17.09.2026 на старте шага 5 — **38/60**; `record pattern` оставлен в ротации повторения
@@ -205,8 +205,8 @@
 ## 🔄 Шаг 6 — DTO + валидация (в работе)
 
 **Старт:** 19→20.09 ночь. **6A ✅ 92/100** (коммит `7221dc0`): record `CreateGreetingRequest(@NotBlank String name)`, `@Valid @RequestBody` на параметре, POST `/api/greet` → `new Greeting(..., greeter.greet(req.name()), ...)`; BankGreeter стал настоящим бином (static убран — разбор оксюморона «бин + static»); BankGreeterTest зелёный с `new` + поведенческие имена. Разобранные ошибки: `@Component` на record роняет старт; вызов-без-результата (эхо клиенту); NPE в тесте (в JUnit нет Spring-контекста). Создан `http/greet.http` (IDEA HTTP Client): 200 / 400 / 415 / GET-регрессия. Факт: дефолтное тело 400 = `{timestamp, status, error, path}` — `message` скрыт с Boot 2.3 → мотивация 6B.
-**Далее 6B:** `@RestControllerAdvice` + `ProblemDetail` (RFC 9457, Spring 6 `ErrorResponse`) — заготовка `exception/GlobalExceptionHandler.java` уже в репо; зачётный вопрос: 2-3 преимущества ProblemDetail над дефолтом. Затем 6C (springdoc OpenAPI) и задачи шага: палиндром IBAN (easy), Luhn (medium).
-**Хвосты к 6A:** мёртвый `import ...NotBlank` в `HelloBankController` (Greeting ✅ и пробел `@PostMapping` ✅ ученик вычистил сам при чек-ауте дня).
+**6B ✅ 90/100 (зачёт 70/100), 20.09 вечер:** после подробной теории механики хэндлеров (DispatcherServlet → best-match по типу) самостоятельно написал `onValidationError` → `ProblemDetail` (400 / «Validation failed» / detail из FieldErrors с `joining("; ")`); прогон greet.http: `Content-Type: application/problem+json`, `instance` = URI запроса, `type` (about:blank) на Boot 4 не сериализуется; регрессия 8/8. Зачёт: назвал информативность + instance (бонус), не назвал главное — RFC 9457 как межплатформенный контракт и расширяемость (`type`, `setProperty`). «Не вижу координальной разницы» — честно, разобрали: ценность стандарта видна на уровне системы, а не одного запроса.
+**Далее по 6:** задачи — палиндром IBAN (easy) + Luhn (medium), затем 6C (springdoc OpenAPI).
 
 ---
 
