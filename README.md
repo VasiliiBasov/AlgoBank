@@ -45,6 +45,4 @@ mvn test
 
 Учебный курс-проект: **26 шагов** (Java Core → Spring Boot → многопоточность → SQL → алгоритмы → mock-собеседование).
 
-**Текущий шаг: 7 / 26** — JPA entities + репозитории (Docker basics #1 ✅ 80/100; миграция Flyway V1 в работе).
-
 Дневники прогресса ведутся прямо в репозитории: `PROGRESS.md`, `STATS.md`, `LEARNING_LOG.md`.
