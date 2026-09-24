@@ -41,7 +41,7 @@ mvn spring-boot:run
 mvn test
 ```
 
-Каждая алгоритмическая задача шагов закрывается JUnit 5 тестами (правило курса). На 25.09.2026 покрыт **30+ тест-кейс** (FizzBuzz, BankGreeter, IbanPalindrome, LuhnValidator).
+Каждая алгоритмическая задача шагов закрывается JUnit 5 тестами (правило курса). На 25.09.2026 покрыт **35+ тест-кейс** (FizzBuzz, BankGreeter, IbanPalindrome, LuhnValidator).
 
 ## 🗺 Статус
 
