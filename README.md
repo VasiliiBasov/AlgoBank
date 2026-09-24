@@ -22,7 +22,7 @@ mvn spring-boot:run
 - H2-консоль: http://localhost:8082/h2-console (JDBC URL: `jdbc:h2:mem:algobank`, user `sa`, пароль пустой)
 
 ## 📡 Сейчас в проекте
-- `GET /api/hello` → JSON-приветствие
+- `GET /api/hello` → JSON-приветствиe
 - `POST /api/greet` → приветствие по имени: DTO + `@Valid`, ошибки валидации по RFC 9457 (`application/problem+json`)
 - Swagger UI: `/swagger-ui/index.html` (springdoc-openapi 3.x, линейка для Boot 4)
 - H2-консоль: `/h2-console` (jdbc:h2:mem:algobank)
