@@ -1,3 +1,4 @@
+![build](https://github.com/VasiliiBasov/AlgoBank/actions/workflows/build.yml/badge.svg)
 # 🏦 AlgoBank
 
 Это учебный банковский backend на Spring Boot, 
