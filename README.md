@@ -29,6 +29,10 @@ mvn spring-boot:run
 - JPA-слой (в работе, шаг 7): `entity/Account` ↔ `entity/Transaction` + Flyway-миграции
 - Алгоритмические задачи: `ru.algobank.algo.step01..06` + JUnit-тесты
 
+### Архитектура (шаг 5)
+
+![Архитектура шага 5](docs/architecture-step05.png)
+
 Схема потока `GET /api/hello`: embedded Tomcat → SecurityConfig → HelloBankController → record Greeting. H2 подключена, но в запросах пока не участвует — ждёт JPA.
 
 ## 🧪 Тесты
