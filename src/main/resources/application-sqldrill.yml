@@ -1,0 +1,9 @@
+# Профиль SQL-трека (см. docs/sqldrills/SQL_TRACK.md)
+# Запуск: mvn spring-boot:run "-Dspring-boot.run.profiles=sqldrill"
+# Отдельная in-memory БД + сид-данные второй локацией Flyway.
+# На dev/обычный запуск не влияет: там locations остаётся classpath:db/migration.
+spring:
+  datasource:
+    url: jdbc:h2:mem:sqldrills;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
+  flyway:
+    locations: classpath:db/migration,classpath:sqldrills/seed
