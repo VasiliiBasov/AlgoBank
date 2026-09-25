@@ -26,15 +26,27 @@ docs/sqldrills/
 ## Как работать
 
 ```powershell
-# 1. Поднять приложение в профиле sqldrill
-mvn spring-boot:run "-Dspring-boot.run.profiles=sqldrill"
+# 1. Автопроверка (красная, пока задача не решена — это и есть учебный цикл):
+mvn -Dtest=SqlStep01Test "-Dsqldrills=on" test
 
-# 2. H2 console: http://localhost:8082/h2-console
-#    JDBC URL: jdbc:h2:mem:sqldrills   User: sa   Password: (пусто)
+#    Флаг -Dsqldrills=on — осознанный гейт @EnabledIfSystemProperty:
+#    без него дрели пропускаются, и основной прогон/GitHub CI остаются зелёными.
+
+# 2. H2 console — для свободных экспериментов с данными:
+mvn spring-boot:run "-Dspring-boot.run.profiles=sqldrill"
+#    http://localhost:8082/h2-console · JDBC URL: jdbc:h2:mem:sqldrills · sa / (пусто)
 
 # 3. Пишешь запрос в src/main/resources/sqldrills/step01/qNN.sql,
-#    прогоняешь в консоли, сверяешь с ожидаемой таблицей из README задачи.
+#    прогоняешь тест, читаешь diff «expected vs actual» в сообщении теста.
 ```
+
+Если русские сообщения тестов в PowerShell выглядят «кракозябрами» — перед прогоном
+выполни `chcp 65001` (в IDEA при запуске тестов такой проблемы нет).
+
+Инфраструктура автопроверки (написана ментором): `SqlDrillDb` поднимает чистую H2
+и накатывает `db/migration` + `sqldrills/seed`, `SqlDrillRunner` читает файл-ответ,
+убирает `--`-комментарии, требует ровно один SELECT и сверяет результат (порядок строк
+и набор колонок важны).
 
 ## Карта трека
 
@@ -43,12 +55,12 @@ mvn spring-boot:run "-Dspring-boot.run.profiles=sqldrill"
 | **sql-01** | `SELECT`, `WHERE`, `ORDER BY`, `DISTINCT`, `LIMIT`, `IN`, `BETWEEN`, `LIKE`, `IS NULL`, алиасы, арифметика | 🟡 материалы готовы, ждёт решения |
 | **sql-02** | `INNER JOIN` vs `LEFT JOIN` (счета без транзакций!), NULL при JOIN, несколько JOIN | ⬜ |
 | **sql-03** | `GROUP BY`, `COUNT/SUM/AVG/MIN/MAX`, `HAVING`, простой подзапрос | ⬜ |
-| **jdbc-harness** (опц., после зачёта шага 7) | ученик строит JUnit-прогонщик qNN.sql на чистом JDBC — заодно тема JDBC для собеса | ⬜ |
+| **jdbc-harness** | JUnit-прогонщик qNN.sql на чистом JDBC (`SqlDrillDb` + `SqlDrillRunner`) | ✅ написан ментором; ученику — опц. задача после зачёта шага 7: свой вариант |
 
 ## Оценка шага
 
-- 12 задач, балл = число подтверждённых ревью верных запросов × 8 (96) + зачёт (4 вопроса × 1).  
-  Шаг зачтён при **≥ 10/12 задач** и **зачёт ≥ 80/100**.
+- 12 задач × 8 баллов (зелёные тесты при прогоне с `-Dsqldrills=on`) + зачёт (4 балла).
+  Шаг зачтён при **12/12 зелёных** и **зачёт ≥ 80/100**.
 - Провалы зачёта → в ротацию разминок, как обычно.
 
 ## Вне проекта (по желанию)
