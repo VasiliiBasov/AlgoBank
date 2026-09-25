@@ -30,7 +30,8 @@ public final class SqlDrillRunner {
     public static void assertQuery(String resourcePath, List<List<String>> expected) {
         List<List<String>> actual = execute(loadStudentSql(resourcePath));
         assertEquals(expected, actual,
-                () -> "Проверь запрос в " + resourcePath + " (постановка: docs/sqldrills/step01/README.md)");
+                () -> "Проверь запрос в " + resourcePath + " (постановка: docs/"
+                        + resourcePath.substring(0, resourcePath.lastIndexOf('/')) + "/README.md)");
     }
 
     /** Выполняет SELECT на свежей drill-БД. Ячейки — строки, SQL NULL читается как null. */
@@ -77,7 +78,7 @@ public final class SqlDrillRunner {
             return fail("Один файл = один запрос (';' только в самом конце): " + resourcePath);
         }
         if (!sql.regionMatches(true, 0, "SELECT", 0, "SELECT".length())) {
-            return fail("В шаге sql-01 ожидается один SELECT: " + resourcePath);
+            return fail("Ожидается один SELECT (см. постановку блока): " + resourcePath);
         }
         return sql;
     }
