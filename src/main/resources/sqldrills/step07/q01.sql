@@ -1,4 +1,5 @@
 -- Шаг 7 · SQL-блок · Q1: все счета, все колонки, по возрастанию id
 -- Постановка и ожидаемый результат: docs/sqldrills/step07/README.md (Q1)
 -- Напиши один SELECT ниже этой строки:
+SELECT * FROM account ORDER BY id
 
