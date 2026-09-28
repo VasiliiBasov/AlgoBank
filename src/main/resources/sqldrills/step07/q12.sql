@@ -2,4 +2,4 @@
 -- сортировка: account_id ASC, внутри счёта amount_minor ASC
 -- Постановка и ожидаемый результат: docs/sqldrills/step07/README.md (Q12)
 -- Напиши один SELECT ниже этой строки:
-
+SELECT id, account_id, amount_minor FROM transactions ORDER BY account_id ASC, amount_minor ASC
