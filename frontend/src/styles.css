@@ -105,18 +105,29 @@ body::after {
 }
 
 .logo-mark {
-  width: 44px;
-  height: 44px;
-  display: grid;
-  place-items: center;
-  font-size: 21px;
+  font-size: 36px;
   font-weight: 800;
-  color: #07101f;
-  border-radius: 14px;
-  background: linear-gradient(135deg, var(--cyan), var(--violet) 60%, var(--pink));
-  box-shadow:
-    0 0 24px rgba(110, 231, 249, 0.35),
-    0 0 54px rgba(167, 139, 250, 0.22);
+  line-height: 1;
+  padding: 0 2px;
+  background: linear-gradient(180deg, #e8fbff 5%, var(--cyan) 45%, var(--violet) 85%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 7px rgba(110, 231, 249, 0.75))
+    drop-shadow(0 0 24px rgba(167, 139, 250, 0.45));
+  animation: neon-breathe 4.5s ease-in-out infinite;
+}
+
+@keyframes neon-breathe {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 7px rgba(110, 231, 249, 0.75))
+      drop-shadow(0 0 24px rgba(167, 139, 250, 0.45));
+  }
+  50% {
+    filter: drop-shadow(0 0 10px rgba(110, 231, 249, 0.95))
+      drop-shadow(0 0 36px rgba(167, 139, 250, 0.6));
+  }
 }
 
 .brand-name {
