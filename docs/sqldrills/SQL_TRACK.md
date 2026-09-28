@@ -28,7 +28,8 @@ src/test/java/ru/algobank/sqldrills/
 └── stepNN/SqlStepNNTest.java         ← приёмочные тесты блока (ожидания зашиты)
 docs/sqldrills/
 ├── SQL_TRACK.md                      ← этот файл (мета + карта + ритуалы)
-└── stepNN/README.md                  ← теория-минимум + постановки + ожидаемые таблицы
+├── stepNN/README.md                  ← шпаргалка-минимум + постановки + ожидаемые таблицы
+└── stepNN/THEORY.md                  ← расширенная теория блока (пишет ментор, если есть)
 ```
 
 ## Как работать
