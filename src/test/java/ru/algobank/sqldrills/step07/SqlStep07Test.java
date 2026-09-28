@@ -1,25 +1,19 @@
 package ru.algobank.sqldrills.step07;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 import ru.algobank.sqldrills.SqlDrillRunner;
 
 import java.util.List;
 
 /**
- * Шаг 7 · SQL-блок 1: базовый SELECT. Постановки и фикстуры: docs/sqldrills/step07/README.md.
+ * Шаг 7 · SQL-блок 1: базовый SELECT. Постановки и фикстуры: docs/sqldrills/step07/README.md,
+ * теория: docs/sqldrills/step07/THEORY.md.
  *
- * Прогон: mvn -Dtest=SqlStep07Test "-Dsqldrills=on" test
- *
- * Гейт -Dsqldrills=on осознанный: без него дрели пропускаются, чтобы основной
- * прогон тестов и GitHub CI оставались зелёными, пока шаг не решён.
- * После устного зачёта блока ментор снимает гейт — тесты вливаются в основной
- * прогон как регрессия (см. docs/sqldrills/SQL_TRACK.md, «Ритуал сдачи блока»).
+ * СДАН 28.09.2026: 12/12 зелёных, зачёт 17/20, балл 97/100 (SQL_TRACK.md, «Оценка блока»).
+ * Гейт -Dsqldrills=on снят при сдаче — тесты работают в основном прогоне и CI как регрессия.
  * Известные значения в ожиданиях — часть приёмки (как в algo-задачах),
  * SQL в файлах qNN.sql пишет ученик.
  */
-@EnabledIfSystemProperty(named = "sqldrills", matches = "on",
-        disabledReason = "SQL-дрели: включи флагом -Dsqldrills=on (см. docs/sqldrills/SQL_TRACK.md)")
 public class SqlStep07Test {
 
     private static final String STEP = "sqldrills/step07/";

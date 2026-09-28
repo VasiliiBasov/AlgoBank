@@ -40,6 +40,7 @@ mvn -Dtest=SqlStepNNTest "-Dsqldrills=on" test        # сейчас: SqlStep07T
 
 #    Гейт -Dsqldrills=on (@EnabledIfSystemProperty) — осознанный: без него дрели
 #    пропускаются, и основной прогон/GitHub CI остаются зелёными, пока блок не сдан.
+#    (блок 7 сдан 28.09 — гейт снят в SqlStep07Test, тесты уже в общем прогоне)
 
 # 2. H2 console — для свободных экспериментов с данными:
 mvn spring-boot:run "-Dspring-boot.run.profiles=sqldrill"
@@ -56,7 +57,7 @@ mvn spring-boot:run "-Dspring-boot.run.profiles=sqldrill"
 
 | Шаг курса | SQL-блок | Задач | Статус |
 |-----------|----------|-------|--------|
-| 7 — JPA entities | базовый SELECT: WHERE / ORDER BY / DISTINCT / LIMIT / IN / BETWEEN / LIKE / IS NULL / алиасы / арифметика | 12 | 🟡 материалы готовы, ждёт решения |
+| 7 — JPA entities | базовый SELECT: WHERE / ORDER BY / DISTINCT / LIMIT / IN / BETWEEN / LIKE / IS NULL / алиасы / арифметика | 12 | ✅ сдан 28.09: 97/100 (12/12 + зачёт 17/20), гейт снят |
 | 8 — @Transactional, docker-compose PostgreSQL | JOIN: INNER/LEFT/RIGHT/FULL, NULL при JOIN, мульти-JOIN; опция: прогон на контейнерном PostgreSQL этого же шага | 8 | ⬜ материалы при старте шага 8 |
 | 9 — Spring Security | GROUP BY + COUNT/SUM/AVG/MIN/MAX + HAVING | 6 | ⬜ |
 | 10 — JWT | подзапросы: IN / EXISTS / скалярный в SELECT и WHERE | 4 | ⬜ |
