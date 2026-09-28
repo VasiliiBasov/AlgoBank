@@ -30,4 +30,4 @@ data/
 # Backup / temp
 *.bak
 *.tmp
-*.swp
+*.swp`n# runtime-лог запуска бэкенда из терминала ассистента`nrun-backend.log

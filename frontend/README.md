@@ -9,7 +9,7 @@
 ## Запуск
 
 ```bash
-# 1) поднять бэкенд (порт 8082):  mvnw spring-boot:run  из корня проекта
+# 1) поднять бэкенд (порт 8082):  mvn spring-boot:run  из корня проекта (JDK 24)
 # 2) из папки frontend:
 npm install
 npm run dev     # → http://localhost:5173
