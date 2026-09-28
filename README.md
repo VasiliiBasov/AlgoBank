@@ -3,7 +3,7 @@
 
 Это учебный банковский backend на Spring Boot, 
 через который я готовлюсь к собеседованию Java-разработчика.
-В планах фронтенд на react.
+Фронтенд есть (React 19 + Vite): см. ниже раздел «Demo UI».
 
 ## 🛠 Технологии
 - Java 21 / Spring Boot 4.0.8
@@ -21,6 +21,19 @@ mvn spring-boot:run
 
 - Проверка: http://localhost:8082/api/hello
 - H2-консоль: http://localhost:8082/h2-console (JDBC URL: `jdbc:h2:mem:algobank`, user `sa`, пароль пустой)
+## 🖥 Demo UI (frontend/)
+
+Внешняя витрина API **вне учебного трека** — React 19 + Vite 8 + TypeScript, «мягкий неон» / premium glass. Пишется ассистентом; Java-бэкенд, как и прежде, пишется руками ученика.
+
+```bash
+cd frontend
+npm install
+npm run dev   # http://localhost:5173 — /api и /actuator проксируются на :8082 (CORS не нужен)
+```
+
+Сейчас живо: `GET /api/hello`, `POST /api/greet` (включая демо ProblemDetail 400 на пустом имени), поллинг `/actuator/health`, ссылки на Swagger/H2. Скелеты «Счета», «Переводы + циклы», «Логин/JWT», «Top-K» зажгутся на шагах 8–11. Подробности: `frontend/README.md`.
+
+
 
 ## 📡 Сейчас в проекте
 - `GET /api/hello` → JSON-приветствиe
