@@ -702,6 +702,7 @@ AlgoBank/
 - **План шага 8:** 8A @Transactional (прокси, propagation, rollbackFor, checked/unchecked, ловушка самовызова; ACID/изоляции кратко) → зачёт; 8B TransferService + REST (`POST /api/transfers`, `GET /api/accounts`, `GET /api/accounts/{id}/transactions` через DTO) + интеграционный тест отката (исключение посередине → балансы не изменились); algo: easy — сборка графа/обороты, medium — `hasCycle` (DFS-цвета) + бонус сам цикл; зачёт шага → тег `step-08`. Опция по карте SQL-трека: docker-compose PostgreSQL.
 - Фронт: скелеты «Счета»/«Переводы+циклы» оживут после 8B (эндпоинты пишет ученик — правило №5; ассистент подключит панели UI).
 - Разминка №9 (flyway_schema_history · LinkedList node(i) · точный термин LinkedHashSet) и mock-фикс/отклик EGAR — параллельной ротацией, не отменены.
+- 🗄 17:22:14 — открыт SQL-сегмент (команда «на sql»): ученик пишет q01→; по его просьбе выложен `docs/sqldrills/step08/THEORY.md` (теория JOIN по образцу блока 7).
 
 #### Разминка №9 (29.09, 16:42:11 → 17:16:44) — итог 71.7/100
 
