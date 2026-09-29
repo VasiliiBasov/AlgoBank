@@ -86,19 +86,16 @@ public class SqlStep08Test {
     }
 
     @Test
-    void q06_fullWithOnCondition() {
+    void q06_leftJoinOnCondition() {
+        // ON vs WHERE у OUTER JOIN: положительность в ON — счёт без подходящих пар
+        // (Анна) остаётся с NULL-ами; в WHERE это условие превратило бы LEFT в INNER.
+        // NB: исходный замысел был FULL JOIN, но H2 2.4 его не поддерживает вовсе.
         SqlDrillRunner.assertQuery(STEP + "q06.sql", List.of(
-                Arrays.asList("Анна Козлова", null, null),
                 List.of("Иван Петров", "1", "100000"),
                 List.of("Мария Сидорова", "4", "200000"),
                 List.of("Мария Сидорова", "6", "35000"),
                 List.of("Олег Смирнов", "9", "1000"),
-                Arrays.asList(null, "2", "-4500"),
-                Arrays.asList(null, "3", "-12300"),
-                Arrays.asList(null, "5", "-9999"),
-                Arrays.asList(null, "7", "-550"),
-                Arrays.asList(null, "8", "-450"),
-                Arrays.asList(null, "10", "-450")));
+                Arrays.asList("Анна Козлова", null, null)));
     }
 
     @Test
