@@ -6,3 +6,6 @@
 -- NB: исходная постановка была про FULL JOIN, но H2 2.4 его не поддерживает вовсе (теория §5).
 -- Постановка и ожидаемый результат: docs/sqldrills/step08/README.md (Q6)
 -- Напиши один SELECT ниже этой строки:
+SELECT a.owner_name, t.id, t.amount_minor
+FROM account a LEFT JOIN transactions t ON a.id = t.account_id AND t.amount_minor > 0
+ORDER BY a.id, t.id
