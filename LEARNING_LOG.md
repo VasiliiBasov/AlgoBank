@@ -695,4 +695,13 @@ AlgoBank/
 - **ФИНАЛ пересдачи №2: (100+90+85+85+100+60+75+82)/8 = 84,6 → 85/100 ✅ СДАН (порог 80). ШАГ 7 ЗАКРЫТ: итог 88,3** = avg(7A 90 · 7easy 90 · SQL-блок 97 · 7medium 88 · Docker-зачёт 80 · зачёт 85) → тег `step-07`.
 - **Ротация после закрытия шага:** сняты — UNION-«почему дороже», цикл-get O(n²) (доборы пройдены); в разминку №9: `flyway_schema_history` (таблица в БД), LinkedList `node(i)`, термин LinkedHashSet, Set.add-контроль, DTO-LAZY-аргумент + прежние темы (Flyway-vs-Hibernate-validate, Docker-кэш, сложность HashSet-паттернов, mock-пробелы).
 
+### Сессия 29.09 (день, ☕ шаг 8) — СТАРТ ШАГА 8
+
+- **Метка (`Get-Date`):** старт 29.09 16:20:58.
+- **SQL-блок 8 (JOIN×8) выдан под гейтом** `-Dsqldrills=on` (инфра — ментор): `SqlStep08Test` — 8 тестов; `docs/sqldrills/step08/README.md` — шпаргалка JOIN, постановки, полные ожидания; заглушки `q01–q08.sql`. Задачи Q1–Q8: INNER · INNER+WHERE · LEFT (Анна без транзакций) · ANTI-JOIN (`IS NULL`) · RIGHT≡LEFT (тот же результат) · FULL с условием в ON (NULL-ы с обеих сторон, NULLS LAST) · self/multy-JOIN «двойники» суммы -450 на разных счетах · JOIN+фильтр+ORDER BY.
+- **План шага 8:** 8A @Transactional (прокси, propagation, rollbackFor, checked/unchecked, ловушка самовызова; ACID/изоляции кратко) → зачёт; 8B TransferService + REST (`POST /api/transfers`, `GET /api/accounts`, `GET /api/accounts/{id}/transactions` через DTO) + интеграционный тест отката (исключение посередине → балансы не изменились); algo: easy — сборка графа/обороты, medium — `hasCycle` (DFS-цвета) + бонус сам цикл; зачёт шага → тег `step-08`. Опция по карте SQL-трека: docker-compose PostgreSQL.
+- Фронт: скелеты «Счета»/«Переводы+циклы» оживут после 8B (эндпоинты пишет ученик — правило №5; ассистент подключит панели UI).
+- Разминка №9 (flyway_schema_history · LinkedList node(i) · точный термин LinkedHashSet) и mock-фикс/отклик EGAR — параллельной ротацией, не отменены.
+
+
 

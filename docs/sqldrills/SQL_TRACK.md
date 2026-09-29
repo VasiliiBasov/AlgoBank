@@ -58,7 +58,7 @@ mvn spring-boot:run "-Dspring-boot.run.profiles=sqldrill"
 | Шаг курса | SQL-блок | Задач | Статус |
 |-----------|----------|-------|--------|
 | 7 — JPA entities | базовый SELECT: WHERE / ORDER BY / DISTINCT / LIMIT / IN / BETWEEN / LIKE / IS NULL / алиасы / арифметика | 12 | ✅ сдан 28.09: 97/100 (12/12 + зачёт 17/20), гейт снят |
-| 8 — @Transactional, docker-compose PostgreSQL | JOIN: INNER/LEFT/RIGHT/FULL, NULL при JOIN, мульти-JOIN; опция: прогон на контейнерном PostgreSQL этого же шага | 8 | ⬜ материалы при старте шага 8 |
+| 8 — @Transactional, docker-compose PostgreSQL | JOIN: INNER/LEFT/RIGHT/FULL, NULL при JOIN, мульти-JOIN; опция: прогон на контейнерном PostgreSQL этого же шага | 8 | 🔄 выдан 29.09 (под гейтом `-Dsqldrills=on`; `docs/sqldrills/step08/` + `SqlStep08Test`) |
 | 9 — Spring Security | GROUP BY + COUNT/SUM/AVG/MIN/MAX + HAVING | 6 | ⬜ |
 | 10 — JWT | подзапросы: IN / EXISTS / скалярный в SELECT и WHERE | 4 | ⬜ |
 | 11 — Spring Data queries | пагинация LIMIT/OFFSET vs keyset (синергия с шагом), DML INSERT/UPDATE/DELETE (нужен verify-SELECT в харнессе — задача ментора) | 5 | ⬜ |
