@@ -3,3 +3,5 @@
 -- Вид соединения: LEFT; Анна Козлова выплывет с NULL, NULL — одиннадцатой строкой в конце.
 -- Постановка и ожидаемый результат: docs/sqldrills/step08/README.md (Q3)
 -- Напиши один SELECT ниже этой строки:
+SELECT a.owner_name, t.id, t.amount_minor
+FROM account a LEFT JOIN transactions t ON t.account_id = a.id ORDER BY a.id, t.id
