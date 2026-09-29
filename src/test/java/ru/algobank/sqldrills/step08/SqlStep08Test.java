@@ -1,24 +1,21 @@
 package ru.algobank.sqldrills.step08;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 import ru.algobank.sqldrills.SqlDrillRunner;
 
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * Шаг 8 · SQL-блок 2: JOIN — INNER/LEFT/RIGHT/FULL, NULL при JOIN, мульти-JOIN.
+ * Шаг 8 · SQL-блок 2: JOIN — INNER/LEFT/RIGHT (FULL — теория §5 THEORY: H2 2.4
+ * его не поддерживает), NULL при JOIN, ON vs WHERE, self/мульти-JOIN.
  * Постановки и фикстуры: docs/sqldrills/step08/README.md.
  *
- * ГЕЙТ: тесты работают только с -Dsqldrills=on (@EnabledIfSystemProperty) —
- * осознанно, чтобы блок был красным для ученика, но зелёным в общем прогоне и CI,
- * пока шаг не сдан. При сдаче (ритуал SQL_TRACK.md) ментор снимает аннотацию.
- *
+ * СДАН 29.09.2026: 8/8 зелёных, зачёт 80/100, балл 96/100 (SQL_TRACK.md, «Оценка блока»).
+ * Гейт -Dsqldrills=on снят при сдаче — тесты работают в основном прогоне и CI как регрессия.
  * Известные значения в ожиданиях — часть приёмки; SQL в файлах qNN.sql пишет ученик.
  * Ожидаемый SQL NULL читается как null (в таких строках — Arrays.asList).
  */
-@EnabledIfSystemProperty(named = "sqldrills", matches = "on")
 public class SqlStep08Test {
 
     private static final String STEP = "sqldrills/step08/";
