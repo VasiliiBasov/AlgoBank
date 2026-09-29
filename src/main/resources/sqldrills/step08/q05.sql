@@ -3,3 +3,5 @@
 -- Цель: почувствовать эквивалентность LEFT ↔ RIGHT; на зачёте перепишешь обратно наизусть.
 -- Постановка и ожидаемый результат: docs/sqldrills/step08/README.md (Q5)
 -- Напиши один SELECT ниже этой строки:
+SELECT a.owner_name, t.id, t.amount_minor
+FROM transactions t RIGHT JOIN account a ON t.account_id = a.id ORDER BY a.id, t.id
