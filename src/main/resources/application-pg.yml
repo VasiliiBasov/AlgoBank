@@ -1,0 +1,10 @@
+# Профиль postgresql
+# Запуск: mvn spring-boot:run "-Dspring-boot.run.profiles=pg"
+# БД собирается в docker
+# На dev/обычный запуск не влияет: там locations остаётся classpath:db/migration.
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/algobank
+    username: algobank
+    password: algobank_pw
+    driver-class-name: org.postgresql.Driver
