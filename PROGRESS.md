@@ -290,4 +290,4 @@
 ### Блок 7: Финал (шаги 25-26)
 25. LeetCode марафон (10-15 задач подряд с таймером)
 26. Финальная шпаргалка + mock-собеседование
-| **Шаг 8** | 8B инфра pg ✅ (compose postgres:16 5433:5432 + volume, application-pg.yml, flyway-database-postgresql; V1 портируема, применена на PG 16.15; 3 грабли: cwd compose / yaml-путь driver-class-name / модуль Flyway). Далее: TransferService+исключения → REST+хэндлеры → тесты (ученик, правило: код по явному запросу) | 05.10 | ~1ч за вечер (микрошаги 6×10мин) |
+| **Шаг 8** | 8B инфра pg ✅ (compose postgres:16 5433:5432 + volume, application-pg.yml, flyway-database-postgresql; V1 портируема, применена на PG 16.15; 3 грабли: cwd compose / yaml-путь driver-class-name / модуль Flyway). Далее: TransferService+исключения → REST+хэндлеры → тесты (ученик, правило: код по явному запросу) | 05.10 | 2ч 49м 46с за вечер (04.10 23:21:54 → 05.10.2026 01:11:40, непрерывно; микрошаги 6×10мин) |
