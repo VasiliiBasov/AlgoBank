@@ -28,6 +28,7 @@ public class TheMostCheapWay {
         int[][] weight = new int[x][y];
 
 
+
         reader.close();
         writer.close();
     }
