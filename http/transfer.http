@@ -1,0 +1,23 @@
+### 1. Перевод Иван → Иван (ждём 200)
+POST http://localhost:8082/api/transfer
+Content-Type: application/json
+
+{"fromId": 1, "toId": 2, "amount": 700}
+
+### 2. Счёт-призрак (ждём 404)
+POST http://localhost:8082/api/transfer
+Content-Type: application/json
+
+{"fromId": 999, "toId": 3, "amount": 700}
+
+### 3. Кредо банкира (ждём 409)
+POST http://localhost:8082/api/transfer
+Content-Type: application/json
+
+{"fromId": 1, "toId": 2, "amount": 5000000}
+
+### 4. Кривой бланк (ждём 400)
+POST http://localhost:8082/api/transfer
+Content-Type: application/json
+
+{"fromId": 2, "toId": 3, "amount": -5}

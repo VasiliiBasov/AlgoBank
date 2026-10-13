@@ -23,4 +23,22 @@ public class GlobalExceptionHandler {
 
     }
 
+    @ExceptionHandler(AccountNotFoundException.class)
+    public ProblemDetail onNotFound(AccountNotFoundException ex) {
+        String detail = ex.getMessage();
+
+        ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, detail);
+        pd.setTitle("Account not found");
+        return pd;
+    }
+
+    @ExceptionHandler(InsufficientFundsException.class)
+    public ProblemDetail haveNoMoney(InsufficientFundsException ex) {
+        String detail = ex.getMessage();
+
+        ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, detail);
+        pd.setTitle("Have no money");
+        return pd;
+    }
+
 }
